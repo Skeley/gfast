@@ -9,7 +9,6 @@ import (
 
 func (router *Router) BindShenAiJiaController(ctx context.Context, group *ghttp.RouterGroup) {
 	group.Group("/shenaijia", func(group *ghttp.RouterGroup) {
-		group.Middleware(ghttp.MiddlewareHandlerResponse)
 		group.Bind(
 			controller.Login,
 		)

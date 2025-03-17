@@ -16,7 +16,7 @@ type Community struct {
 }
 
 type CommunityListFirstLevelReq struct {
-	g.Meta `path:"/community" tags:"小区管理" method:"get" summary:"获取一级小区"`
+	g.Meta `path:"/community/major" tags:"小区管理" method:"get" summary:"获取一级小区"`
 }
 type CommunityListFirstLevelRes struct {
 	g.Meta        `mime:"application/json"`
@@ -24,7 +24,7 @@ type CommunityListFirstLevelRes struct {
 }
 
 type CommunityListTwoLevelReq struct {
-	g.Meta       `path:"/community" tags:"小区管理" method:"get" summary:"获取二级小区"`
+	g.Meta       `path:"/community/minor" tags:"小区管理" method:"get" summary:"获取二级小区"`
 	FirstLevelId uint `v:"required" json:"firstLevelId"`
 }
 type CommunityListTwoLevelRes struct {
