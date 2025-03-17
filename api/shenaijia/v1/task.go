@@ -29,7 +29,7 @@ type TaskListReq struct {
 	ProjectId uint `v:"required" json:"projectId"`
 }
 
-type TaskListResp struct {
+type TaskListRes struct {
 	g.Meta   `mime:"application/json"`
 	TaskList []*Task `json:"taskList"`
 }
@@ -39,7 +39,7 @@ type TaskGetReq struct {
 	TaskId uint `v:"required" json:"taskId"`
 }
 
-type TaskGetResp struct {
+type TaskGetRes struct {
 	g.Meta `mime:"application/json"`
 	Task   []*Task `json:"task"`
 }
@@ -53,7 +53,7 @@ type TaskAddReq struct {
 	EstimatedCompletionDate time.Time `v:"required|date-format:Y-m-d" json:"estimatedCompletionDate"`
 }
 
-type TaskAddResp struct{}
+type TaskAddRes struct{}
 
 type TaskUpdateReq struct {
 	g.Meta                  `path:"/task" tags:"项目任务管理" method:"put" summary:"添加任务"`

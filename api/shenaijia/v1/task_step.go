@@ -27,34 +27,34 @@ type TaskStep struct {
 	Action *Action `json:"action"`
 }
 
-type TaskListActionReq struct {
-	g.Meta  `path:"/task/stage/action" tags:"步骤管理" method:"get" summary:"获取全部工作内容"`
+type TaskListWorkReq struct {
+	g.Meta  `path:"/task/stage/work" tags:"工作管理" method:"get" summary:"获取全部工作内容"`
 	StageId uint   `v:"required" json:"stageId"`
 	TaskId  string `v:"required" json:"taskId"`
 }
 
-type TaskListStepRes struct {
+type TaskListWorkRes struct {
 	g.Meta   `mime:"application/json"`
 	StepList []TaskStep `json:"stepList"`
 }
 
-type TaskAddActionReq struct {
-	g.Meta    `path:"/task/stage/action" tags:"步骤管理" method:"put" summary:"添加工作内容"`
+type TaskAddWorkReq struct {
+	g.Meta    `path:"/task/stage/work" tags:"步骤管理" method:"put" summary:"添加工作内容"`
 	StageId   uint     `v:"required" json:"stageId"`
 	TaskId    string   `v:"required" json:"taskId"`
 	Comment   string   `v:"required" json:"comment"`
 	ImageList []string `v:"foreach|url" json:"image_list"`
 }
-type TaskAddActionRes struct{}
+type TaskAddWorkRes struct{}
 
-type TaskUpdateActionReq struct {
-	g.Meta    `path:"/task/stage/action" tags:"步骤管理" method:"put" summary:"更新工作内容"`
+type TaskUpdateWorkReq struct {
+	g.Meta    `path:"/task/stage/work" tags:"步骤管理" method:"put" summary:"更新工作内容"`
 	ActionId  *Action  `v:"required" json:"actionId"`
 	Comment   string   `v:"required" json:"comment"`
 	Stats     uint     `v:"required|in:0,1,2" dc:"0:未开始;1:进行中;2:已完成" json:"stats"`
 	ImageList []string `v:"foreach|url" json:"imageList"`
 }
-type TaskUpdateActionRes struct{}
+type TaskUpdateWorkRes struct{}
 
 type StageAddStepReq struct {
 	g.Meta  `path:"/task/stage/step" tags:"步骤管理" method:"post" summary:"添加步骤"`
