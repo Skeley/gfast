@@ -94,6 +94,15 @@ func (s *sSysUser) GetUserById(ctx context.Context, id uint64) (user *model.Logi
 	return
 }
 
+func (s *sSysUser) GetUserByMobile(ctx context.Context, mobile string) (user *model.LoginUserRes, err error) {
+	user = &model.LoginUserRes{}
+	err = g.Try(ctx, func(ctx context.Context) {
+		dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Mobile, mobile).Scan(user)
+		liberr.ErrIsNil(ctx, err, "账号不存在")
+	})
+	return
+}
+
 // LoginLog 记录登录日志
 func (s *sSysUser) LoginLog(ctx context.Context, params *model.LoginLogParams) {
 	ua := user_agent.New(params.UserAgent)

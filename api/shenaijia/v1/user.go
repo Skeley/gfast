@@ -14,7 +14,7 @@ import (
 
 type UserInfo struct {
 	model.LoginUserRes
-	Type string `json:"type"` // 物业 or 施工 or 合伙人
+	Types []string `json:"types"`
 }
 
 type LoginReq struct {
@@ -22,7 +22,7 @@ type LoginReq struct {
 	OpenId    string `v:"required" json:"openId"`
 	LoginCode string `v:"required" json:"loginCode"`
 	IV        string `v:"required" json:"iv"`
-	// Tel    string `json:"tel"` // 从wechat拉取手机号码 登录
+	Tel       string `json:"tel"` // 从wechat拉取手机号码 登录
 }
 
 type LoginRes struct {

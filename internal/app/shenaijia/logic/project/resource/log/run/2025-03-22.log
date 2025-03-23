@@ -1,0 +1,11 @@
+2025-03-22 10:19:56.248 [ERRO] the parameter "pointer" for function Scan should type of pointer 
+Stack:
+1.  github.com/tiger1103/gfast/v3/library/liberr.ErrIsNil
+    /Users/skyler/Projects/gfast/library/liberr/err.go:18
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/project.(*sProject).SysList.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/project/project.go:72
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/project.(*sProject).SysList
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/project/project.go:32
+4.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/project.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/project/project_test.go:18
+

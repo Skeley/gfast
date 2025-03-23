@@ -1,0 +1,11 @@
+2025-03-21 19:34:17.567 [ERRO] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id): Error 1045 (28000): Access denied for user 'gfast3'@'172.17.0.1' (using password: YES) 
+Stack:
+1.  github.com/tiger1103/gfast/v3/library/liberr.ErrIsNil
+    /Users/skyler/Projects/gfast/library/liberr/err.go:18
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:59
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+4.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+

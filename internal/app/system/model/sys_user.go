@@ -17,6 +17,7 @@ type LoginUserRes struct {
 	Id           uint64 `orm:"id,primary"       json:"id"`           //
 	UserName     string `orm:"user_name,unique" json:"userName"`     // 用户名
 	UserNickname string `orm:"user_nickname"    json:"userNickname"` // 用户昵称
+	Mobile       string `orm:"mobile"           json:"mobile"`       // 手机号
 	UserPassword string `orm:"user_password"    json:"userPassword"` // 登录密码;cmf_password加密
 	UserSalt     string `orm:"user_salt"        json:"userSalt"`     // 加密盐
 	UserStatus   uint   `orm:"user_status"      json:"userStatus"`   // 用户状态;0:禁用,1:正常,2:未验证

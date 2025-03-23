@@ -1,0 +1,9 @@
+2025-03-22 11:01:44.184 [DEBU] {98b2a9f1d6002f1875530210398c1233} [191 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-22 11:01:44.220 [DEBU] {b09327fdd6002f18765302105a398232} [ 35 ms] [default] [gfast-v32] [rows:5  ] SHOW FULL COLUMNS FROM `user_info`
+2025-03-22 11:01:44.319 [DEBU] {707245ffd6002f18775302108e064161} [ 98 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`type`,`community_major_id`,`community_minor_id`,`inviter` FROM `user_info` WHERE `id`=31 LIMIT 1
+2025-03-22 11:10:06.685 [DEBU] {3094c3f24b012f181c48e20412f04e49} [163 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-22 11:10:06.725 [DEBU] {98f482fc4b012f181d48e204a1ce0f0b} [ 39 ms] [default] [gfast-v32] [rows:5  ] SHOW FULL COLUMNS FROM `user_info`
+2025-03-22 11:10:06.800 [DEBU] {2879dafe4b012f181e48e204a73a155d} [ 75 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`type`,`community_major_id`,`community_minor_id`,`inviter` FROM `user_info` WHERE `id`=31 LIMIT 1
+2025-03-22 11:22:57.389 [DEBU] {a0ee2963ff012f18fe1a7e79c2977062} [182 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-22 11:22:57.428 [DEBU] {60e4226eff012f18ff1a7e79e407ce81} [ 37 ms] [default] [gfast-v32] [rows:5  ] SHOW FULL COLUMNS FROM `user_info`
+2025-03-22 11:22:57.494 [DEBU] {b8b46170ff012f18001b7e79e2862b6e} [ 65 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`type`,`community_major_id`,`community_minor_id`,`inviter` FROM `user_info` WHERE `id`=31 LIMIT 1

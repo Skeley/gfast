@@ -1,0 +1,9 @@
+2025-03-22 10:19:56.120 [DEBU] {602f3efe8efe2e187372ad77e9fcacdf} [177 ms] [default] [gfast-v32] [rows:13 ] SHOW FULL COLUMNS FROM `project`
+2025-03-22 10:19:56.155 [DEBU] {e8dee2088ffe2e187472ad77adc9da58} [ 33 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-22 10:19:56.200 [DEBU] {7027e30a8ffe2e187572ad77fc26d982} [ 45 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-22 10:19:56.247 [DEBU] {9078920d8ffe2e187672ad77f958e535} [ 47 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-22 10:20:16.310 [DEBU] {00824aaf93fe2e180efbfb6ade551704} [217 ms] [default] [gfast-v32] [rows:13 ] SHOW FULL COLUMNS FROM `project`
+2025-03-22 10:20:16.343 [DEBU] {18924cbc93fe2e180ffbfb6a587f102a} [ 32 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-22 10:20:16.388 [DEBU] {60da32be93fe2e1810fbfb6a31fa4af0} [ 45 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-22 10:20:16.423 [DEBU] {f089ebc093fe2e1811fbfb6ad3225eb3} [ 34 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-22 10:20:16.482 [DEBU] {983dfcc293fe2e1812fbfb6a9d1c417f} [ 59 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,`community_name` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10

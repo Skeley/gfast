@@ -1,0 +1,93 @@
+2025-03-21 19:34:17.558 [ERRO] {98c830bf3ace2e181b6f0509f48050c8} [  8 ms] [default] [gfast-v32] [rows:0  ] SHOW FULL COLUMNS FROM `project`
+Error: Error 1045 (28000): Access denied for user 'gfast3'@'172.17.0.1' (using password: YES) 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:58
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+
+2025-03-21 19:34:17.562 [ERRO] {f0b3b5bf3ace2e181c6f0509e71418de} [  4 ms] [default] [gfast-v32] [rows:0  ] SHOW FULL COLUMNS FROM `community`
+Error: Error 1045 (28000): Access denied for user 'gfast3'@'172.17.0.1' (using password: YES) 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:58
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+
+2025-03-21 19:34:17.565 [ERRO] {706cf5bf3ace2e181d6f050977d01f02} [  3 ms] [default] [gfast-v32] [rows:0  ] SHOW FULL COLUMNS FROM `project`
+Error: Error 1045 (28000): Access denied for user 'gfast3'@'172.17.0.1' (using password: YES) 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:58
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+
+2025-03-21 19:34:17.567 [ERRO] {a0741cc03ace2e181e6f050948e4ddf9} [  2 ms] [default] [gfast-v32] [rows:0  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+Error: Error 1045 (28000): Access denied for user 'gfast3'@'172.17.0.1' (using password: YES) 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:58
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+
+2025-03-21 19:35:12.835 [DEBU] {88a3ab9447ce2e18a2ddeb3693c00027} [164 ms] [default] [gfast-v32] [rows:12 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 19:35:12.849 [DEBU] {a8d2899e47ce2e18a3ddeb368220ccf7} [ 13 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 19:35:12.863 [DEBU] {f8df4e9f47ce2e18a4ddeb362fe5f845} [ 14 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 19:35:12.877 [DEBU] {b05223a047ce2e18a5ddeb360326563f} [ 13 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 19:35:12.890 [DEBU] {b05af2a047ce2e18a6ddeb369c8f2c3d} [ 13 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10
+2025-03-21 19:37:54.018 [DEBU] {a02d48176dce2e1876f1bb0e8af81cb6} [242 ms] [default] [gfast-v32] [rows:12 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 19:37:54.039 [DEBU] {c86fd4256dce2e1877f1bb0e8a13d6c0} [ 19 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 19:37:54.062 [DEBU] {481dfb266dce2e1878f1bb0efea812f5} [ 22 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 19:37:54.080 [DEBU] {809855286dce2e1879f1bb0ec6e65b6f} [ 18 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 19:37:54.100 [DEBU] {48bd7b296dce2e187af1bb0e9c5ea377} [ 19 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,c.community_name FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10
+2025-03-21 19:38:21.190 [DEBU] {0832707273ce2e18f04d654b97c7dc14} [115 ms] [default] [gfast-v32] [rows:12 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 19:38:21.207 [DEBU] {d05c717973ce2e18f14d654b8eb6ebb4} [ 15 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 19:38:21.226 [DEBU] {f0584f7a73ce2e18f24d654b7e82aa6e} [ 19 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 19:38:21.241 [DEBU] {384b737b73ce2e18f34d654b1b7f5d33} [ 15 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 19:38:21.257 [ERRO] {c857677c73ce2e18f44d654bdc9ae35e} [ 15 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,`c.community_name` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10
+Error: Error 1054 (42S22): Unknown column 'c.community_name' in 'field list' 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:70
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+
+2025-03-21 19:40:43.637 [DEBU] {e079bb9a94ce2e186d93394a57ef48ef} [152 ms] [default] [gfast-v32] [rows:12 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 19:40:43.654 [DEBU] {d05ad7a394ce2e186e93394a9b55cf6f} [ 16 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 19:40:43.671 [DEBU] {c05dcaa494ce2e186f93394af395577e} [ 17 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 19:40:43.687 [DEBU] {1062cfa594ce2e187093394aca108400} [ 16 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 19:40:43.705 [ERRO] {c0fdcda694ce2e187193394a08809e00} [ 18 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,`c.community_name` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10
+Error: Error 1054 (42S22): Unknown column 'c.community_name' in 'field list' 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:70
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.(*sSysProject).List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject.go:32
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/sysProject.Test_sSysProject_List
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/sysProject/sysProject_test.go:17
+
+2025-03-21 19:44:00.193 [DEBU] {78018a60c2ce2e18f71b2a334e20cb02} [116 ms] [default] [gfast-v32] [rows:12 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 19:44:00.207 [DEBU] {585e8267c2ce2e18f81b2a33e2931d97} [ 13 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 19:44:00.222 [DEBU] {c0255268c2ce2e18f91b2a33dd1b54ce} [ 14 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 19:44:00.244 [DEBU] {58fc3269c2ce2e18fa1b2a33aeb0331f} [ 22 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 19:44:00.259 [DEBU] {00ad886ac2ce2e18fb1b2a33a0debfe1} [ 14 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,`community_name` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10
+2025-03-21 19:45:27.524 [DEBU] {401964b5d6ce2e180b8dfe441e0e561d} [124 ms] [default] [gfast-v32] [rows:12 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 19:45:27.541 [DEBU] {487cc9bcd6ce2e180c8dfe4493018ebc} [ 17 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 19:45:27.557 [DEBU] {8806c7bdd6ce2e180d8dfe444c4ac54f} [ 16 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 19:45:27.574 [DEBU] {e861c4bed6ce2e180e8dfe442d5c0cd4} [ 17 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 19:45:27.596 [DEBU] {90ecccbfd6ce2e180f8dfe444c62218d} [ 21 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,`community_name` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10
+2025-03-21 22:35:17.093 [DEBU] {d013aa231bd82e1861b676630e75856c} [180 ms] [default] [gfast-v32] [rows:13 ] SHOW FULL COLUMNS FROM `project`
+2025-03-21 22:35:17.127 [DEBU] {685f7a2e1bd82e1862b676633a6008b8} [ 33 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-21 22:35:17.162 [DEBU] {402472301bd82e1863b67663c81a7f4f} [ 35 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id)
+2025-03-21 22:35:17.205 [DEBU] {b01b95321bd82e1864b6766300c3afe3} [ 42 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-03-21 22:35:17.242 [DEBU] {a0d51f351bd82e1865b6766315e97f76} [ 37 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`name`,`start_date`,`estimated_completion_date`,`completion_date`,`progress`,`inspection_report`,`acceptance_report`,`manager`,`associate`,`community_name` FROM `project` INNER JOIN `community` AS `c` ON (project.community_major_id=c.major_id AND project.community_minor_id=c.minor_id) ORDER BY `start_date` desc LIMIT 0,10

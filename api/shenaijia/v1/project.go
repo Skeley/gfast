@@ -47,28 +47,28 @@ type ProjectGetRes struct {
 
 type ProjectAddReq struct {
 	g.Meta                  `path:"/project" tags:"工程项目管理" method:"post" summary:"创建项目"`
-	UserId                  uint      `v:"required" json:"userId"`
-	ProjectName             string    `v:"required" json:"projectName"`
-	StartDate               time.Time `v:"required|date-format:Y-m-d" json:"startDate"`
-	EstimatedCompletionDate time.Time `v:"required|date-format:Y-m-d" json:"estimatedCompletionDate"`
+	UserId                  uint   `v:"required" json:"userId"`
+	ProjectName             string `v:"required" json:"projectName"`
+	StartDate               string `v:"required|date-format:Y-m-d" json:"startDate"`
+	EstimatedCompletionDate string `v:"required|date-format:Y-m-d" json:"estimatedCompletionDate"`
 }
 
 type ProjectAddRes struct{}
 
 type ProjectUpdateReq struct {
 	g.Meta                  `path:"/project" tags:"工程项目管理" method:"put" summary:"更新项目"`
-	ProjectId               uint      `v:"required" json:"projectId"`
-	ProjectName             string    `v:"required" json:"projectName"`
-	StartDate               time.Time `v:"required|date-format:Y-m-d" json:"startDate"`
-	EstimatedCompletionDate time.Time `v:"required|date-format:Y-m-d" json:"estimatedCompletionDate"`
-	CompletionDate          time.Time `v:"date-format:Y-m-d" json:"completionDate"`
-	Progress                uint8     `v:"required|between:0,100" json:"progress"`
+	ProjectId               uint   `v:"required" json:"projectId"`
+	ProjectName             string `v:"required" json:"projectName"`
+	StartDate               string `v:"required|date-format:Y-m-d" json:"startDate"`
+	EstimatedCompletionDate string `v:"required|date-format:Y-m-d" json:"estimatedCompletionDate"`
+	CompletionDate          string `v:"date-format:Y-m-d" json:"completionDate"`
+	Progress                uint8  `v:"required|between:0,100" json:"progress"`
 }
 
 type ProjectUpdateRes struct{}
 
 type ProjectDeleteReq struct {
-	g.Meta    `path:"/project" tags:"工程项目管理" method:"delete" summary:"删除项目"`
+	g.Meta    `path:"/project" tags:"工程项目管理" method:"delete" summary:"软删除项目"`
 	ProjectId uint `v:"required" json:"projectId"`
 }
 
