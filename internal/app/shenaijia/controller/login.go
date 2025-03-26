@@ -3,19 +3,19 @@ package controller
 import (
 	"context"
 	"fmt"
+
 	"github.com/gogf/gf/v2/crypto/gmd5"
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gconv"
+
+	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
+	commonController "github.com/tiger1103/gfast/v3/internal/app/common/controller"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
 	"github.com/tiger1103/gfast/v3/internal/app/system/model"
 	sysService "github.com/tiger1103/gfast/v3/internal/app/system/service"
-
 	"github.com/tiger1103/gfast/v3/library/libUtils"
-
-	"github.com/gogf/gf/v2/errors/gerror"
-	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
-	commonController "github.com/tiger1103/gfast/v3/internal/app/common/controller"
 )
 
 var (

@@ -11,7 +11,7 @@ import (
 
 type (
 	IUser interface {
-		GetUserType(ctx context.Context, userId uint64) (userType []string, err error)
+		GetUserType(ctx context.Context, userId uint64) (userTypes []string, err error)
 	}
 )
 

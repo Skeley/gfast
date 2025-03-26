@@ -2,8 +2,6 @@ package controller
 
 import (
 	"context"
-	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
-
 	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	commonController "github.com/tiger1103/gfast/v3/internal/app/common/controller"
 )
@@ -16,18 +14,22 @@ type communityController struct {
 	commonController.BaseController
 }
 
-func (c *communityController) ListMajor(ctx context.Context, req *v1.CommunityListMajorReq) (res *v1.CommunityListMajorRes, err error) {
-	return service.Community().ListMajor(ctx, req)
+func (c *communityController) ListAll(ctx context.Context, req *v1.CommunityListAllReq) (res *v1.CommunityRes, err error) {
+	return &v1.CommunityRes{}, nil
 }
 
-func (c *communityController) ListMinor(ctx context.Context, req *v1.CommunityListMinorReq) (res *v1.CommunityListMinorRes, err error) {
-	return service.Community().ListMinor(ctx, req)
+func (c *communityController) Search(ctx context.Context, req *v1.CommunitySearchReq) (res *v1.CommunityRes, err error) {
+	return &v1.CommunityRes{}, nil
 }
 
-func (c *communityController) SysAdd(ctx context.Context, req *v1.SysCommunityAddReq) (res *v1.SysCommunityAddRes, err error) {
-	return service.Community().SysAdd(ctx, req)
+func (c *communityController) List(ctx context.Context, req *v1.CommunityListReq) (res *v1.CommunityRes, err error) {
+	return &v1.CommunityRes{}, nil
 }
 
-func (c *communityController) SysUpdate(ctx context.Context, req *v1.SysCommunityUpdateReq) (res *v1.SysCommunityUpdateRes, err error) {
-	return service.Community().SysUpdate(ctx, req)
+func (c *communityController) Add(ctx context.Context, req *v1.CommunityAddReq) (res *v1.CommunityAddRes, err error) {
+	return &v1.CommunityAddRes{}, nil
+}
+
+func (c *communityController) Update(ctx context.Context, req *v1.CommunityUpdateReq) (res *v1.CommunityUpdateRes, err error) {
+	return &v1.CommunityUpdateRes{}, nil
 }
