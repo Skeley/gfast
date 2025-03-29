@@ -408,7 +408,7 @@ func (s *sSysUser) getSearchDeptIds(ctx context.Context, deptId uint64) (deptIds
 	return
 }
 
-func tryBuildUserTypes(types []int64) *string {
+func typeVecToUserTypes(types []int64) *string {
 	if len(types) > 0 {
 		vs := make([]string, 0, len(types))
 		for _, v := range types {
@@ -418,6 +418,16 @@ func tryBuildUserTypes(types []int64) *string {
 		return &res
 	}
 	return nil
+}
+
+func userTypesToTypeVec(userTypes string) []uint {
+	vec := strings.Split(userTypes, ",")
+	var res []uint
+	for _, s := range vec {
+		iv, _ := strconv.ParseUint(s, 10, 64)
+		res = append(res, uint(iv))
+	}
+	return res
 }
 
 func (s *sSysUser) Add(ctx context.Context, req *system.UserAddReq) (err error) {
@@ -441,7 +451,7 @@ func (s *sSysUser) Add(ctx context.Context, req *system.UserAddReq) (err error) 
 				DeptId:       req.DeptId,
 				Remark:       req.Remark,
 				IsAdmin:      req.IsAdmin,
-				UserTypes:    tryBuildUserTypes(req.Types),
+				UserTypes:    typeVecToUserTypes(req.Types),
 			})
 
 			liberr.ErrIsNil(ctx, e, "添加用户失败")
@@ -470,7 +480,7 @@ func (s *sSysUser) Edit(ctx context.Context, req *system.UserEditReq) (err error
 				Sex:          req.Sex,
 				DeptId:       req.DeptId,
 				Remark:       req.Remark,
-				UserTypes:    tryBuildUserTypes(req.Types),
+				UserTypes:    typeVecToUserTypes(req.Types),
 				IsAdmin:      req.IsAdmin,
 			})
 			liberr.ErrIsNil(ctx, err, "修改用户信息失败")
@@ -571,6 +581,7 @@ func (s *sSysUser) GetEditUser(ctx context.Context, id uint64) (res *system.User
 		//获取用户信息
 		res.User, err = s.GetUserInfoById(ctx, id)
 		liberr.ErrIsNil(ctx, err)
+		res.UserTypes = userTypesToTypeVec(res.User.UserTypes)
 		//获取已选择的角色信息
 		res.CheckedRoleIds, err = s.GetAdminRoleIds(ctx, id)
 		liberr.ErrIsNil(ctx, err)
