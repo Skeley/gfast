@@ -29,6 +29,8 @@ import (
 	"github.com/tiger1103/gfast/v3/internal/app/system/service"
 	"github.com/tiger1103/gfast/v3/library/libUtils"
 	"github.com/tiger1103/gfast/v3/library/liberr"
+	"strconv"
+	"strings"
 )
 
 func init() {
@@ -342,6 +344,9 @@ func (s *sSysUser) List(ctx context.Context, req *system.UserSearchReq) (total i
 		if req.Mobile != "" {
 			m = m.Where("mobile like ?", "%"+req.Mobile+"%")
 		}
+		if req.Type != "" {
+			m = m.Where("FIND_IN_SET(?, user_types)", req.Type)
+		}
 		if len(req.DateRange) > 0 {
 			m = m.Where("created_at >=? AND created_at <=?", req.DateRange[0], req.DateRange[1])
 		}
@@ -403,6 +408,18 @@ func (s *sSysUser) getSearchDeptIds(ctx context.Context, deptId uint64) (deptIds
 	return
 }
 
+func tryBuildUserTypes(types []int64) *string {
+	if len(types) > 0 {
+		vs := make([]string, 0, len(types))
+		for _, v := range types {
+			vs = append(vs, strconv.FormatInt(v, 10))
+		}
+		res := strings.Join(vs, ",")
+		return &res
+	}
+	return nil
+}
+
 func (s *sSysUser) Add(ctx context.Context, req *system.UserAddReq) (err error) {
 	err = s.UserNameOrMobileExists(ctx, req.UserName, req.Mobile)
 	if err != nil {
@@ -424,7 +441,9 @@ func (s *sSysUser) Add(ctx context.Context, req *system.UserAddReq) (err error) 
 				DeptId:       req.DeptId,
 				Remark:       req.Remark,
 				IsAdmin:      req.IsAdmin,
+				UserTypes:    tryBuildUserTypes(req.Types),
 			})
+
 			liberr.ErrIsNil(ctx, e, "添加用户失败")
 			e = s.addUserRole(ctx, req.RoleIds, userId)
 			liberr.ErrIsNil(ctx, e, "设置用户权限失败")
@@ -451,6 +470,7 @@ func (s *sSysUser) Edit(ctx context.Context, req *system.UserEditReq) (err error
 				Sex:          req.Sex,
 				DeptId:       req.DeptId,
 				Remark:       req.Remark,
+				UserTypes:    tryBuildUserTypes(req.Types),
 				IsAdmin:      req.IsAdmin,
 			})
 			liberr.ErrIsNil(ctx, err, "修改用户信息失败")
