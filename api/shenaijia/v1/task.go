@@ -22,26 +22,18 @@ type Task struct {
 	EstimatedCompletionDate time.Time `json:"estimatedCompletionDate"`
 	CompletionDate          time.Time `json:"completionDate"`
 	Progress                uint8     `json:"progress"`
+	Standard                bool      `json:"standard"`
 }
 
-type TaskListReq struct {
-	g.Meta    `path:"/task/list" tags:"项目任务管理" method:"get" summary:"获取项目所有任务"`
-	ProjectId uint `v:"required" json:"projectId"`
+type TaskSearchReq struct {
+	g.Meta    `path:"/task/list" tags:"项目任务管理" method:"get" summary:"搜索项目下任务"`
+	ProjectId uint   `v:"required" json:"projectId"`
+	Name      string `json:"name"`
 }
 
-type TaskListRes struct {
-	g.Meta   `mime:"application/json"`
-	TaskList []*Task `json:"taskList"`
-}
-
-type TaskGetReq struct {
-	g.Meta `path:"/task" tags:"项目任务管理" method:"get" summary:"获取任务"`
-	TaskId uint `v:"required" json:"taskId"`
-}
-
-type TaskGetRes struct {
+type TaskSearchRes struct {
 	g.Meta `mime:"application/json"`
-	Task   []*Task `json:"task"`
+	List   []*Task `json:"list"`
 }
 
 type TaskAddReq struct {
@@ -81,8 +73,9 @@ type TaskListTypeReq struct {
 type TaskListTypeRes struct {
 	g.Meta   `mime:"application/json"`
 	TypeList []struct {
-		Id   uint   `json:"id"`
-		Type string `json:"type"`
+		Id       uint   `json:"id"`
+		Type     string `json:"type"`
+		Standard bool   `json:"standard"`
 	} `json:"typeList"`
 }
 

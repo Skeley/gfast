@@ -13,7 +13,7 @@ import (
 
 type (
 	IProject interface {
-		SysList(ctx context.Context, req *api.SysProjectListReq) (res *api.SysProjectListRes, err error)
+		SysList(ctx context.Context, req *api.SysProjectSearchReq) (res *api.SysProjectSearchRes, err error)
 		SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *api.SysProjectAddRes, err error)
 		SysEdit(ctx context.Context, req *api.SysProjectEditReq) (res *api.SysProjectEditRes, err error)
 		Delete(ctx context.Context, req *api.ProjectDeleteReq) (res *api.ProjectDeleteRes, err error)

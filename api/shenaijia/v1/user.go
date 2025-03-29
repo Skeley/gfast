@@ -30,3 +30,23 @@ type LoginRes struct {
 	UserInfo *UserInfo `json:"userInfo"`
 	Token    string    `json:"token"`
 }
+
+type UserBindCommunityReq struct {
+	g.Meta      `path:"/user/community" tags:"用户管理" method:"put" summary:"用户绑定小区"`
+	UserId      int64 `p:"userId" v:"required#用户id不能为空"`
+	CommunityId uint  `p:"communityId"`
+}
+type UserBindCommunityRes struct{}
+
+type UserUnbindCommunityReq struct {
+	g.Meta      `path:"/user/community" tags:"用户管理" method:"delete" summary:"用户解绑小区"`
+	UserId      int64 `p:"userId" v:"required#用户id不能为空"`
+	CommunityId uint  `p:"communityId"`
+}
+type UserUnbindCommunityRes struct{}
+
+type UserUnbindAllCommunityReq struct {
+	g.Meta `path:"/user/community/delete_all" tags:"用户管理" method:"delete" summary:"用户解绑全部小区"`
+	UserId int64 `p:"userId" v:"required#用户id不能为空"`
+}
+type UserUnbindAllCommunityRes struct{}

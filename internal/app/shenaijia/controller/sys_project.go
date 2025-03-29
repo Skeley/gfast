@@ -26,7 +26,7 @@ func (c *sysProjectController) ProjectDelete(ctx context.Context, req *v1.SysPro
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *sysProjectController) ProjectList(ctx context.Context, req *v1.SysProjectListReq) (res *v1.SysProjectListRes, err error) {
+func (c *sysProjectController) ProjectList(ctx context.Context, req *v1.SysProjectSearchReq) (res *v1.SysProjectSearchRes, err error) {
 	return service.Project().SysList(ctx, req)
 }
 

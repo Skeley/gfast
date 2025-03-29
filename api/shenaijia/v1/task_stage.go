@@ -22,8 +22,8 @@ type TaskListStageReq struct {
 }
 
 type TaskListStageRes struct {
-	g.Meta    `mime:"application/json"`
-	StageList []TaskStage `json:"stageList"`
+	g.Meta `mime:"application/json"`
+	List   []TaskStage `json:"list"`
 }
 
 type TaskAddStageReq struct {
