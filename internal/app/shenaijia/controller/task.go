@@ -17,39 +17,39 @@ type taskController struct {
 	commonController.BaseController
 }
 
-func (c *taskController) Search(ctx context.Context, req v1.TaskSearchReq) (res *v1.TaskSearchRes, err error) {
+func (c *taskController) Search(ctx context.Context, req *v1.TaskSearchReq) (res *v1.TaskSearchRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) Add(ctx context.Context, req v1.TaskAddReq) (res *v1.TaskAddRes, err error) {
+func (c *taskController) Add(ctx context.Context, req *v1.TaskAddReq) (res *v1.TaskAddRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) Update(ctx context.Context, req v1.TaskUpdateReq) (res *v1.TaskUpdateRes, err error) {
+func (c *taskController) Update(ctx context.Context, req *v1.TaskUpdateReq) (res *v1.TaskUpdateRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) Delete(ctx context.Context, req v1.TaskDeleteReq) (res *v1.TaskDeleteRes, err error) {
+func (c *taskController) Delete(ctx context.Context, req *v1.TaskDeleteReq) (res *v1.TaskDeleteRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) ListStage(ctx context.Context, req v1.TaskListStageReq) (res *v1.TaskListStageRes, err error) {
+func (c *taskController) ListStage(ctx context.Context, req *v1.TaskListStageReq) (res *v1.TaskListStageRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) AddStage(ctx context.Context, req v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
+func (c *taskController) AddStage(ctx context.Context, req *v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) UpdateStage(ctx context.Context, req v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
+func (c *taskController) UpdateStage(ctx context.Context, req *v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) DeleteStage(ctx context.Context, req v1.TaskDeleteStageReq) (res *v1.TaskDeleteStageRes, err error) {
+func (c *taskController) DeleteStage(ctx context.Context, req *v1.TaskDeleteStageReq) (res *v1.TaskDeleteStageRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) ListStep(ctx context.Context, req v1.TaskListStepReq) (res *v1.TaskListStepRes, err error) {
+func (c *taskController) ListStep(ctx context.Context, req *v1.TaskListStepReq) (res *v1.TaskListStepRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 

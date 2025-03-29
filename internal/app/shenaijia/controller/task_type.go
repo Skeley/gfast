@@ -16,14 +16,14 @@ type taskTypeController struct {
 	commonController.BaseController
 }
 
-func (c *taskTypeController) List(ctx context.Context, req v1.TaskListTypeReq) (res *v1.TaskListTypeRes, err error) {
+func (c *taskTypeController) List(ctx context.Context, req *v1.TaskListTypeReq) (res *v1.TaskListTypeRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskTypeController) Add(ctx context.Context, req v1.TaskAddTypeReq) (res *v1.TaskAddTypeRes, err error) {
+func (c *taskTypeController) Add(ctx context.Context, req *v1.TaskAddTypeReq) (res *v1.TaskAddTypeRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskTypeController) Delete(ctx context.Context, req v1.TaskDeleteTypeReq) (res *v1.TaskDeleteTypeRes, err error) {
+func (c *taskTypeController) Delete(ctx context.Context, req *v1.TaskDeleteTypeReq) (res *v1.TaskDeleteTypeRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
