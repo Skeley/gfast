@@ -48,7 +48,7 @@ type TaskAddReq struct {
 type TaskAddRes struct{}
 
 type TaskUpdateReq struct {
-	g.Meta                  `path:"/task" tags:"项目任务管理" method:"put" summary:"添加任务"`
+	g.Meta                  `path:"/task" tags:"项目任务管理" method:"put" summary:"更新任务"`
 	TaskId                  uint      `v:"required" json:"taskId"`
 	Name                    string    `v:"required" json:"name"`
 	StartDate               time.Time `v:"required|date-format:Y-m-d" json:"startDate"`

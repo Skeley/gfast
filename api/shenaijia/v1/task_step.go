@@ -23,7 +23,7 @@ type TaskStep struct {
 }
 
 type TaskListStepReq struct {
-	g.Meta  `path:"/task/stage/work" tags:"工作管理" method:"get" summary:"获取全部工作步骤"`
+	g.Meta  `path:"/task/stage/step" tags:"步骤管理" method:"get" summary:"获取全部工作步骤"`
 	StageId uint   `v:"required" json:"stageId"`
 	TaskId  string `v:"required" json:"taskId"`
 }
@@ -34,7 +34,7 @@ type TaskListStepRes struct {
 }
 
 type TaskAddStepReq struct {
-	g.Meta  `path:"/task/stage/work" tags:"步骤管理" method:"put" summary:"添加工作步骤"`
+	g.Meta  `path:"/task/stage/step" tags:"步骤管理" method:"post" summary:"添加工作步骤"`
 	StageId uint   `v:"required" json:"stageId"`
 	TaskId  string `v:"required" json:"taskId"`
 
@@ -46,7 +46,7 @@ type TaskAddStepReq struct {
 type TaskAddStepRes struct{}
 
 type TaskUpdateStepReq struct {
-	g.Meta                  `path:"/task/stage/work" tags:"步骤管理" method:"put" summary:"更新工作步骤"`
+	g.Meta                  `path:"/task/stage/step" tags:"步骤管理" method:"put" summary:"更新工作步骤"`
 	StepId                  uint     `v:"required" json:"stepId"`
 	StepName                string   `v:"required" json:"stepName"`
 	Comment                 string   `v:"required" json:"comment"`
@@ -57,14 +57,14 @@ type TaskUpdateStepReq struct {
 type TaskUpdateStepRes struct{}
 
 type TaskDeleteStepReq struct {
-	g.Meta `path:"/task/stage/work" tags:"步骤管理" method:"put" summary:"删除工作步骤"`
+	g.Meta `path:"/task/stage/step" tags:"步骤管理" method:"delete" summary:"删除工作步骤"`
 	StepId uint `v:"required" json:"stepId"`
 }
 
 type TaskDeleteStepRes struct{}
 
 type TaskCompleteStepReq struct {
-	g.Meta `path:"/task/stage/work" tags:"步骤管理" method:"put" summary:"完成步骤"`
+	g.Meta `path:"/task/stage/complete_step" tags:"步骤管理" method:"put" summary:"完成步骤"`
 	StepId uint `v:"required" json:"stepId"`
 }
 
