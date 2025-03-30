@@ -23,7 +23,7 @@ type CommunitySearchReq struct {
 
 type CommunityRes struct {
 	g.Meta `mime:"application/json"`
-	List   []*entity.Community `json:"communityList"`
+	List   []*entity.Community `json:"list"`
 
 	commonApi.ListRes
 }
