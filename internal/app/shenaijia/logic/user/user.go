@@ -60,9 +60,9 @@ func (s *sUser) UnbindCommunity(ctx context.Context, req *v1.UserUnbindCommunity
 
 	err = g.Try(ctx, func(ctx context.Context) {
 		m := dao.CommunityUnion.Ctx(ctx)
-		m.Where(dao.CommunityUnion.Columns().UserId, req.UserId)
+		m = m.Where(dao.CommunityUnion.Columns().UserId, req.UserId)
 		if len(req.CommunityId) > 0 {
-			m.Where(dao.CommunityUnion.Columns().CommunityId, gconv.Uint64(req.CommunityId))
+			m = m.Where(dao.CommunityUnion.Columns().CommunityId, gconv.Uint64(req.CommunityId))
 		}
 		_, e := m.Delete()
 		liberr.ErrIsNil(ctx, e, "用户解绑小区失败")
