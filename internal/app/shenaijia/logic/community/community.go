@@ -30,12 +30,30 @@ func (s *sCommunity) getCommunityName(ctx context.Context, ids []uint) (res map[
 		var communityList []entity.Community
 		m.WhereIn(dao.Community.Columns().Id, ids).Scan(&communityList)
 		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
-
 		for _, community := range communityList {
 			res[community.Id] = community.CommunityName
 		}
 	})
 	return
+}
+
+func (s *sCommunity) FillParentName(ctx context.Context, list []*api.Community) ([]*api.Community, error) {
+	var needParentNameIdList []uint
+	for _, v := range list {
+		if v.Pid != 0 {
+			needParentNameIdList = append(needParentNameIdList, v.Pid)
+		}
+	}
+	nameMap, e := s.getCommunityName(ctx, needParentNameIdList)
+	if e != nil {
+		return nil, e
+	}
+	for _, v := range list {
+		if v.Pid != 0 {
+			v.ParentName = nameMap[v.Pid]
+		}
+	}
+	return list, nil
 }
 
 func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (res *api.CommunityRes, err error) {
@@ -60,29 +78,15 @@ func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (r
 		var communityList []entity.Community
 		err = m.Page(req.PageNum, req.PageSize).Order(dao.Community.Columns().CommunityName + " asc").Scan(&communityList)
 		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
-		if len(communityList) == 0 {
-			return
-		}
-		var needParentNameIdList []uint
 		for _, v := range communityList {
-			if v.Pid != 0 {
-				needParentNameIdList = append(needParentNameIdList, v.Pid)
-			}
-		}
-		// todo: cache
-		nameMap, e := s.getCommunityName(ctx, needParentNameIdList)
-		liberr.ErrIsNil(ctx, e)
-		for _, v := range communityList {
-			c := &api.Community{
+			res.List = append(res.List, &api.Community{
 				Id:   v.Id,
 				Pid:  v.Pid,
 				Name: v.CommunityName,
-			}
-			if c.Pid != 0 {
-				c.ParentName = nameMap[c.Pid]
-			}
-			res.List = append(res.List, c)
+			})
 		}
+		res.List, err = s.FillParentName(ctx, res.List)
+		liberr.ErrIsNil(ctx, err, "获取一级小区名失败")
 	})
 	return
 }

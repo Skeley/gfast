@@ -29,3 +29,6 @@ resource/data/distTokenDb
 manifest/config/config.yaml
 GFastV3
 /manifest/config/db.yaml
+/internal/app/shenaijia/logic/community/resource/
+/internal/app/shenaijia/logic/project/resource/
+/internal/app/shenaijia/logic/user/resource/

@@ -13,6 +13,7 @@ import (
 
 type (
 	ICommunity interface {
+		FillParentName(ctx context.Context, list []*api.Community) ([]*api.Community, error)
 		Search(ctx context.Context, req *api.CommunitySearchReq) (res *api.CommunityRes, err error)
 		Add(ctx context.Context, req *api.CommunityAddReq) (res *api.CommunityAddRes, err error)
 		Update(ctx context.Context, req *api.CommunityUpdateReq) (res *api.CommunityUpdateRes, err error)
