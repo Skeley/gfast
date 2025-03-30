@@ -6,8 +6,13 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/dao"
+	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
 	"github.com/tiger1103/gfast/v3/library/liberr"
 )
+
+func init() {
+	service.RegisterUser(New())
+}
 
 func New() *sUser {
 	return &sUser{}
