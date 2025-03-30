@@ -20,15 +20,15 @@ type CommunityDao struct {
 
 // CommunityColumns defines and stores column names for the table community.
 type CommunityColumns struct {
-	MajorId       string // 主id
-	MinorId       string // 次id
+	Id            string //
+	Pid           string //
 	CommunityName string // 小区名
 }
 
 // communityColumns holds the columns for the table community.
 var communityColumns = CommunityColumns{
-	MajorId:       "major_id",
-	MinorId:       "minor_id",
+	Id:            "id",
+	Pid:           "pid",
 	CommunityName: "community_name",
 }
 

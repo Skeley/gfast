@@ -2,8 +2,10 @@ package controller
 
 import (
 	"context"
+
 	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	commonController "github.com/tiger1103/gfast/v3/internal/app/common/controller"
+	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
 )
 
 var (
@@ -14,22 +16,14 @@ type communityController struct {
 	commonController.BaseController
 }
 
-func (c *communityController) ListAll(ctx context.Context, req *v1.CommunityListAllReq) (res *v1.CommunityRes, err error) {
-	return &v1.CommunityRes{}, nil
-}
-
 func (c *communityController) Search(ctx context.Context, req *v1.CommunitySearchReq) (res *v1.CommunityRes, err error) {
-	return &v1.CommunityRes{}, nil
-}
-
-func (c *communityController) List(ctx context.Context, req *v1.CommunityListReq) (res *v1.CommunityRes, err error) {
-	return &v1.CommunityRes{}, nil
+	return service.Community().Search(ctx, req)
 }
 
 func (c *communityController) Add(ctx context.Context, req *v1.CommunityAddReq) (res *v1.CommunityAddRes, err error) {
-	return &v1.CommunityAddRes{}, nil
+	return service.Community().Add(ctx, req)
 }
 
 func (c *communityController) Update(ctx context.Context, req *v1.CommunityUpdateReq) (res *v1.CommunityUpdateRes, err error) {
-	return &v1.CommunityUpdateRes{}, nil
+	return service.Community().Update(ctx, req)
 }

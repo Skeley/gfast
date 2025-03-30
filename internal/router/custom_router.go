@@ -20,6 +20,7 @@ func (router *Router) BindShenAiJiaController(ctx context.Context, group *ghttp.
 			controller.Community,
 			controller.Task,
 			controller.File,
+			controller.User,
 		)
 	})
 }

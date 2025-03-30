@@ -7,11 +7,14 @@ package service
 
 import (
 	"context"
+
+	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 )
 
 type (
 	IUser interface {
-		GetUserType(ctx context.Context, userId uint64) (userTypes []string, err error)
+		BindCommunity(ctx context.Context, req *v1.UserBindCommunityReq) (res *v1.UserBindCommunityRes, err error)
+		UnbindCommunity(ctx context.Context, req *v1.UserUnbindCommunityReq) (res *v1.UserUnbindCommunityRes, err error)
 	}
 )
 

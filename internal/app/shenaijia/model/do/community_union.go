@@ -10,9 +10,8 @@ import (
 
 // CommunityUnion is the golang structure of table community_union for DAO operations like Where/Data.
 type CommunityUnion struct {
-	g.Meta           `orm:"table:community_union, do:true"`
-	Id               interface{} //
-	UserId           interface{} // 用户id
-	CommunityMajorId interface{} // 小区主id
-	CommunityMinorId interface{} // 小区次id
+	g.Meta      `orm:"table:community_union, do:true"`
+	Id          interface{} //
+	UserId      interface{} // 用户id
+	CommunityId interface{} // 小区id
 }

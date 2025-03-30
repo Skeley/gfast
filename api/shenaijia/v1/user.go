@@ -12,11 +12,6 @@ import (
 	"github.com/tiger1103/gfast/v3/internal/app/system/model"
 )
 
-type UserInfo struct {
-	model.LoginUserRes
-	Types []string `json:"types"`
-}
-
 type LoginReq struct {
 	g.Meta    `path:"/login" tags:"登陆" method:"get" summary:"登陆"`
 	OpenId    string `v:"required" json:"openId"`
@@ -26,9 +21,9 @@ type LoginReq struct {
 }
 
 type LoginRes struct {
-	g.Meta   `mime:"application/json"`
-	UserInfo *UserInfo `json:"userInfo"`
-	Token    string    `json:"token"`
+	g.Meta `mime:"application/json"`
+	User   *model.LoginUserRes `json:"user"`
+	Token  string              `json:"token"`
 }
 
 type UserBindCommunityReq struct {
@@ -40,13 +35,7 @@ type UserBindCommunityRes struct{}
 
 type UserUnbindCommunityReq struct {
 	g.Meta      `path:"/user/community" tags:"用户管理" method:"delete" summary:"用户解绑小区"`
-	UserId      int64 `p:"userId" v:"required#用户id不能为空"`
-	CommunityId uint  `p:"communityId"`
+	UserId      int64  `p:"userId" v:"required#用户id不能为空"`
+	CommunityId string `p:"communityId"`
 }
 type UserUnbindCommunityRes struct{}
-
-type UserUnbindAllCommunityReq struct {
-	g.Meta `path:"/user/community/delete_all" tags:"用户管理" method:"delete" summary:"用户解绑全部小区"`
-	UserId int64 `p:"userId" v:"required#用户id不能为空"`
-}
-type UserUnbindAllCommunityRes struct{}

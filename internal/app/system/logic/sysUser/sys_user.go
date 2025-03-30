@@ -81,6 +81,7 @@ func (s *sSysUser) GetUserByUsername(ctx context.Context, userName string) (user
 	err = g.Try(ctx, func(ctx context.Context) {
 		user = &model.LoginUserRes{}
 		err = dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().UserName, userName).Scan(user)
+		user.UserTypes = rawTypesToVec(user.RawTypes)
 		liberr.ErrIsNil(ctx, err, "账号密码错误")
 	})
 	return
@@ -91,6 +92,7 @@ func (s *sSysUser) GetUserById(ctx context.Context, id uint64) (user *model.Logi
 	err = g.Try(ctx, func(ctx context.Context) {
 		user = &model.LoginUserRes{}
 		err = dao.SysUser.Ctx(ctx).Fields(user).WherePri(id).Scan(user)
+		user.UserTypes = rawTypesToVec(user.RawTypes)
 		liberr.ErrIsNil(ctx, err, "获取用户信息失败")
 	})
 	return
@@ -100,6 +102,7 @@ func (s *sSysUser) GetUserByMobile(ctx context.Context, mobile string) (user *mo
 	user = &model.LoginUserRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
 		dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Mobile, mobile).Scan(user)
+		user.UserTypes = rawTypesToVec(user.RawTypes)
 		liberr.ErrIsNil(ctx, err, "账号不存在")
 	})
 	return
@@ -408,7 +411,7 @@ func (s *sSysUser) getSearchDeptIds(ctx context.Context, deptId uint64) (deptIds
 	return
 }
 
-func typeVecToUserTypes(types []int64) *string {
+func vecToRawTypes(types []int64) *string {
 	if len(types) > 0 {
 		vs := make([]string, 0, len(types))
 		for _, v := range types {
@@ -420,7 +423,7 @@ func typeVecToUserTypes(types []int64) *string {
 	return nil
 }
 
-func userTypesToTypeVec(userTypes string) []uint {
+func rawTypesToVec(userTypes string) []uint {
 	vec := strings.Split(userTypes, ",")
 	var res []uint
 	for _, s := range vec {
@@ -451,7 +454,7 @@ func (s *sSysUser) Add(ctx context.Context, req *system.UserAddReq) (err error) 
 				DeptId:       req.DeptId,
 				Remark:       req.Remark,
 				IsAdmin:      req.IsAdmin,
-				UserTypes:    typeVecToUserTypes(req.Types),
+				UserTypes:    vecToRawTypes(req.Types),
 			})
 
 			liberr.ErrIsNil(ctx, e, "添加用户失败")
@@ -480,7 +483,7 @@ func (s *sSysUser) Edit(ctx context.Context, req *system.UserEditReq) (err error
 				Sex:          req.Sex,
 				DeptId:       req.DeptId,
 				Remark:       req.Remark,
-				UserTypes:    typeVecToUserTypes(req.Types),
+				UserTypes:    vecToRawTypes(req.Types),
 				IsAdmin:      req.IsAdmin,
 			})
 			liberr.ErrIsNil(ctx, err, "修改用户信息失败")
@@ -581,7 +584,7 @@ func (s *sSysUser) GetEditUser(ctx context.Context, id uint64) (res *system.User
 		//获取用户信息
 		res.User, err = s.GetUserInfoById(ctx, id)
 		liberr.ErrIsNil(ctx, err)
-		res.UserTypes = userTypesToTypeVec(res.User.UserTypes)
+		res.UserTypes = rawTypesToVec(res.User.UserTypes)
 		//获取已选择的角色信息
 		res.CheckedRoleIds, err = s.GetAdminRoleIds(ctx, id)
 		liberr.ErrIsNil(ctx, err)

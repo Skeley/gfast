@@ -13,9 +13,7 @@ import (
 
 type (
 	ICommunity interface {
-		ListAll(ctx context.Context, req *api.CommunityListAllReq) (res *api.CommunityRes, err error)
 		Search(ctx context.Context, req *api.CommunitySearchReq) (res *api.CommunityRes, err error)
-		List(ctx context.Context, req *api.CommunityListReq) (res *api.CommunityRes, err error)
 		Add(ctx context.Context, req *api.CommunityAddReq) (res *api.CommunityAddRes, err error)
 		Update(ctx context.Context, req *api.CommunityUpdateReq) (res *api.CommunityUpdateRes, err error)
 	}

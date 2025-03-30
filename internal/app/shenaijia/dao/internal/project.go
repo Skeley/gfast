@@ -23,14 +23,15 @@ type ProjectColumns struct {
 	Id                      string // 项目id
 	Valid                   string // 是否有效
 	Name                    string // 项目名
-	CommunityMajorId        string // 小区主id
-	CommunityMinorId        string // 小区次id
+	CommunityId             string // 小区id
 	StartDate               string // 开工日期
 	EstimatedCompletionDate string // 预计完工日期
 	CompletionDate          string // 完工日期
 	Progress                string // 进度
 	InspectionReport        string // 检查报告PDF链接
 	AcceptanceReport        string // 验收报告PDF链接
+	State                   string // 项目状态: 0(未审核), 1(审核通过)
+	Creator                 string // 创建人
 	Manager                 string // 物业经理
 	Associate               string // 合伙人
 }
@@ -40,14 +41,15 @@ var projectColumns = ProjectColumns{
 	Id:                      "id",
 	Valid:                   "valid",
 	Name:                    "name",
-	CommunityMajorId:        "community_major_id",
-	CommunityMinorId:        "community_minor_id",
+	CommunityId:             "community_id",
 	StartDate:               "start_date",
 	EstimatedCompletionDate: "estimated_completion_date",
 	CompletionDate:          "completion_date",
 	Progress:                "progress",
 	InspectionReport:        "inspection_report",
 	AcceptanceReport:        "acceptance_report",
+	State:                   "state",
+	Creator:                 "creator",
 	Manager:                 "manager",
 	Associate:               "associate",
 }

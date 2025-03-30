@@ -15,14 +15,15 @@ type Project struct {
 	Id                      interface{} // 项目id
 	Valid                   interface{} // 是否有效
 	Name                    interface{} // 项目名
-	CommunityMajorId        interface{} // 小区主id
-	CommunityMinorId        interface{} // 小区次id
+	CommunityId             interface{} // 小区id
 	StartDate               *gtime.Time // 开工日期
 	EstimatedCompletionDate *gtime.Time // 预计完工日期
 	CompletionDate          *gtime.Time // 完工日期
 	Progress                interface{} // 进度
 	InspectionReport        interface{} // 检查报告PDF链接
 	AcceptanceReport        interface{} // 验收报告PDF链接
+	State                   interface{} // 项目状态: 0(未审核), 1(审核通过)
+	Creator                 interface{} // 创建人
 	Manager                 interface{} // 物业经理
 	Associate               interface{} // 合伙人
 }

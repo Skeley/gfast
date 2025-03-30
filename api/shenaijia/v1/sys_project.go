@@ -18,12 +18,12 @@ type SysProjectSearchReq struct {
 	commonApi.PageReq
 
 	Name                string   `json:"name"`
-	CommunityId         uint     `json:"communityId v:"required"`
+	CommunityId         string   `json:"communityId v:"required"`
 	StartDateRange      []string `json:"startDateRange" v:"foreach|date-format:Y-m-d"`
 	CompletionDateRange []string `json:"completionDateRange" v:"foreach|date-format:Y-m-d"`
-	Creator             uint     `json:"creator"`
-	Manager             uint     `json:"manager"`
-	Associate           uint     `json:"associate"`
+	Creator             string   `json:"creator"`
+	Manager             string   `json:"manager"`
+	Associate           string   `json:"associate"`
 }
 
 type SysProjectSearchRes struct {

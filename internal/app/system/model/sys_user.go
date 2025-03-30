@@ -22,8 +22,10 @@ type LoginUserRes struct {
 	UserSalt     string `orm:"user_salt"        json:"userSalt"`     // 加密盐
 	UserStatus   uint   `orm:"user_status"      json:"userStatus"`   // 用户状态;0:禁用,1:正常,2:未验证
 	IsAdmin      int    `orm:"is_admin"         json:"isAdmin"`      // 是否后台管理员 1 是  0   否
-	Avatar       string `orm:"avatar" json:"avatar"`                 //头像
-	DeptId       uint64 `orm:"dept_id"       json:"deptId"`          //部门id
+	Avatar       string `orm:"avatar" json:"avatar"`                 // 头像
+	DeptId       uint64 `orm:"dept_id" json:"deptId"`                // 部门id
+	RawTypes     string `orm:"user_types" json:"rawTypes"`           // 用户类型
+	UserTypes    []uint `json:"userTypes"`                           // conv RawTypes to UserTypes
 }
 
 // SysUserRoleDeptRes 带有部门、角色、岗位信息的用户数据

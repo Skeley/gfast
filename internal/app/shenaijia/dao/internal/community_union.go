@@ -20,18 +20,16 @@ type CommunityUnionDao struct {
 
 // CommunityUnionColumns defines and stores column names for the table community_union.
 type CommunityUnionColumns struct {
-	Id               string //
-	UserId           string // 用户id
-	CommunityMajorId string // 小区主id
-	CommunityMinorId string // 小区次id
+	Id          string //
+	UserId      string // 用户id
+	CommunityId string // 小区id
 }
 
 // communityUnionColumns holds the columns for the table community_union.
 var communityUnionColumns = CommunityUnionColumns{
-	Id:               "id",
-	UserId:           "user_id",
-	CommunityMajorId: "community_major_id",
-	CommunityMinorId: "community_minor_id",
+	Id:          "id",
+	UserId:      "user_id",
+	CommunityId: "community_id",
 }
 
 // NewCommunityUnionDao creates and returns a new DAO object for table data access.

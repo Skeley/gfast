@@ -11,7 +11,7 @@ import (
 // Community is the golang structure of table community for DAO operations like Where/Data.
 type Community struct {
 	g.Meta        `orm:"table:community, do:true"`
-	MajorId       interface{} // 主id
-	MinorId       interface{} // 次id
+	Id            interface{} //
+	Pid           interface{} //
 	CommunityName interface{} // 小区名
 }
