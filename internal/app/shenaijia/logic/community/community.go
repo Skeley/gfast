@@ -7,6 +7,7 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 	api "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/dao"
+	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model/entity"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
 	systemConsts "github.com/tiger1103/gfast/v3/internal/app/system/consts"
 	"github.com/tiger1103/gfast/v3/library/liberr"
@@ -21,6 +22,21 @@ func New() *sCommunity {
 }
 
 type sCommunity struct{}
+
+func (s *sCommunity) getCommunityName(ctx context.Context, ids []uint) (res map[uint]string, err error) {
+	res = make(map[uint]string)
+	err = g.Try(ctx, func(ctx context.Context) {
+		m := dao.Community.Ctx(ctx)
+		var communityList []entity.Community
+		m.WhereIn("community_id", ids).Scan(&communityList)
+		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
+
+		for _, community := range communityList {
+			res[community.Id] = community.CommunityName
+		}
+	})
+	return
+}
 
 func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (res *api.CommunityRes, err error) {
 	res = &api.CommunityRes{}
@@ -41,8 +57,32 @@ func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (r
 		if req.PageSize == 0 {
 			req.PageSize = systemConsts.PageSize
 		}
-		m.Page(req.PageNum, req.PageSize).Order(dao.Community.Columns().CommunityName + " asc").Scan(&res.List)
+		var communityList []entity.Community
+		m.Page(req.PageNum, req.PageSize).Order(dao.Community.Columns().CommunityName + " asc").Scan(&communityList)
 		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
+		if len(communityList) == 0 {
+			return
+		}
+		var needParentNameIdList []uint
+		for _, v := range communityList {
+			if v.Pid != 0 {
+				needParentNameIdList = append(needParentNameIdList, v.Pid)
+			}
+		}
+		// todo: cache
+		nameMap, e := s.getCommunityName(ctx, needParentNameIdList)
+		liberr.ErrIsNil(ctx, e)
+		for _, v := range communityList {
+			c := &api.Community{
+				Id:   v.Id,
+				Pid:  v.Pid,
+				Name: v.CommunityName,
+			}
+			if c.Pid != 0 {
+				c.ParentName = nameMap[c.Pid]
+			}
+			res.List = append(res.List, c)
+		}
 	})
 	return
 }
