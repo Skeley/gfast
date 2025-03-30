@@ -70,3 +70,26 @@ Stack:
 2025-03-30 17:31:35.541 [DEBU] {e8aa52c0c18a3118219d2104c97911cf} [ 12 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
 2025-03-30 17:31:35.557 [DEBU] {c81b42c1c18a3118229d21042105f08c} [ 13 ms] [default] [gfast-v32] [rows:7  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
 2025-03-30 17:31:35.592 [DEBU] {b82c09c2c18a3118239d210401588189} [ 35 ms] [default] [gfast-v32] [rows:2  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (12,4,4)
+2025-03-30 17:33:33.432 [DEBU] {683f972ddd8a311838129e207476047f} [106 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:33:33.460 [DEBU] {6052f433dd8a311839129e2021133371} [ 27 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:33:33.477 [DEBU] {f8dd9c35dd8a31183a129e204da3afe3} [ 17 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:33:33.496 [DEBU] {f0d29f36dd8a31183b129e20dd3aa112} [ 19 ms] [default] [gfast-v32] [rows:7  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:33:33.531 [DEBU] {08d9c137dd8a31183c129e2073646903} [ 35 ms] [default] [gfast-v32] [rows:2  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (12,4,4)
+2025-03-30 17:49:30.404 [DEBU] {e0a21300bc8b3118354e8f1104775239} [ 64 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:49:30.416 [DEBU] {280fe803bc8b3118364e8f110f43c4a6} [ 12 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:49:30.428 [DEBU] {88cd9604bc8b3118374e8f1180d96b20} [ 12 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:49:30.440 [DEBU] {c8bf5905bc8b3118384e8f1197e75995} [ 12 ms] [default] [gfast-v32] [rows:8  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:49:30.470 [DEBU] {80f80d06bc8b3118394e8f11bf142421} [ 30 ms] [default] [gfast-v32] [rows:3  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (6,12,4,4)
+2025-03-30 17:49:41.255 [DEBU] {d8b60186be8b31186f0cb00a90da9ac4} [ 78 ms] [default] [gfast-v32] [rows:0  ] [txid:1] BEGIN
+2025-03-30 17:49:41.272 [DEBU] {d8b60186be8b31186f0cb00a90da9ac4} [ 16 ms] [default] [gfast-v32] [rows:3  ] [txid:1] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:49:41.302 [DEBU] {d8b60186be8b31186f0cb00a90da9ac4} [ 30 ms] [default] [gfast-v32] [rows:0  ] [txid:1] UPDATE `community` SET `pid`=0,`community_name`='fsk2' WHERE `id`=0
+2025-03-30 17:49:41.320 [DEBU] {d8b60186be8b31186f0cb00a90da9ac4} [ 18 ms] [default] [gfast-v32] [rows:0  ] [txid:1] COMMIT
+2025-03-30 17:49:46.169 [DEBU] {30fd5aabbf8b311877bab74fe517679c} [ 71 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:49:46.183 [DEBU] {d02c91afbf8b311878bab74f09180cab} [ 14 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:49:46.197 [DEBU] {007a68b0bf8b311879bab74fd1510e29} [ 14 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:49:46.211 [DEBU] {90c33db1bf8b31187abab74feba430f5} [ 14 ms] [default] [gfast-v32] [rows:8  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:49:46.241 [DEBU] {603212b2bf8b31187bbab74fd41ded6b} [ 30 ms] [default] [gfast-v32] [rows:3  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (6,12,4,4)
+2025-03-30 17:50:57.900 [DEBU] {a00e495dd08b31184184d24e3e8f8f3d} [ 97 ms] [default] [gfast-v32] [rows:0  ] [txid:1] BEGIN
+2025-03-30 17:50:57.920 [DEBU] {a00e495dd08b31184184d24e3e8f8f3d} [ 20 ms] [default] [gfast-v32] [rows:3  ] [txid:1] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:50:57.957 [DEBU] {a00e495dd08b31184184d24e3e8f8f3d} [ 37 ms] [default] [gfast-v32] [rows:1  ] [txid:1] UPDATE `community` SET `pid`=0,`community_name`='fsk2' WHERE `id`=13
+2025-03-30 17:50:57.979 [DEBU] {a00e495dd08b31184184d24e3e8f8f3d} [ 22 ms] [default] [gfast-v32] [rows:0  ] [txid:1] COMMIT

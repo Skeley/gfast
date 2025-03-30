@@ -45,8 +45,8 @@ func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (r
 		if len(req.Name) > 0 {
 			m = m.Where("community_name LIKE ?", "%"+req.Name+"%")
 		}
-		if len(req.Parent) > 0 {
-			m = m.Where("pid = ?", gconv.Uint64(req.Parent))
+		if len(req.Pid) > 0 {
+			m = m.Where("pid = ?", gconv.Uint64(req.Pid))
 		}
 		res.Total, err = m.Count()
 
@@ -92,8 +92,8 @@ func (s *sCommunity) Add(ctx context.Context, req *api.CommunityAddReq) (res *ap
 	data := g.Map{
 		dao.Community.Columns().CommunityName: req.Name,
 	}
-	if len(req.Parent) > 0 {
-		data[dao.Community.Columns().Pid] = gconv.Uint64(req.Parent)
+	if len(req.Pid) > 0 {
+		data[dao.Community.Columns().Pid] = gconv.Uint64(req.Pid)
 	}
 	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		err = g.Try(ctx, func(ctx context.Context) {
@@ -111,12 +111,15 @@ func (s *sCommunity) Update(ctx context.Context, req *api.CommunityUpdateReq) (r
 	data := g.Map{
 		dao.Community.Columns().CommunityName: req.Name,
 	}
+	if len(req.Pid) > 0 {
+		data[dao.Community.Columns().Pid] = gconv.Uint64(req.Pid)
+	}
 	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		err = g.Try(ctx, func(ctx context.Context) {
 			m := dao.Community.Ctx(ctx).TX(tx)
 			m = m.Where(dao.Community.Columns().Id, req.Id)
 			_, e := m.Update(data)
-			liberr.ErrIsNil(ctx, e, "修改小区名字失败")
+			liberr.ErrIsNil(ctx, e, "修改小区失败")
 		})
 		return err
 	})

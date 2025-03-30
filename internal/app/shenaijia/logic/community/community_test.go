@@ -15,9 +15,9 @@ import (
 func Test_sCommunity_Search(t *testing.T) {
 	ctx := context.Background()
 	req := api.CommunitySearchReq{
-		Meta:   g.Meta{},
-		Parent: "",
-		Name:   "",
+		Meta: g.Meta{},
+		Pid:  "",
+		Name: "",
 	}
 	req.PageNum = 1
 	req.PageSize = 100
@@ -36,12 +36,27 @@ func Test_sCommunity_Add(t *testing.T) {
 	t.Run("add", func(t *testing.T) {
 		ctx := context.Background()
 		req := api.CommunityAddReq{
-			Parent: "12",
-			Name:   "fsk2",
+			Pid:  "12",
+			Name: "fsk2",
 		}
 
 		s := &sCommunity{}
 		_, err := s.Add(ctx, &req)
+		assert.NoError(t, err)
+	})
+}
+
+func Test_sCommunity_Update(t *testing.T) {
+	t.Run("update", func(t *testing.T) {
+		ctx := context.Background()
+		req := api.CommunityUpdateReq{
+			Id:   13,
+			Pid:  "0",
+			Name: "fsk2",
+		}
+
+		s := &sCommunity{}
+		_, err := s.Update(ctx, &req)
 		assert.NoError(t, err)
 	})
 }
