@@ -8,6 +8,7 @@ import (
 	api "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/dao"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
+	systemConsts "github.com/tiger1103/gfast/v3/internal/app/system/consts"
 	"github.com/tiger1103/gfast/v3/library/liberr"
 )
 
@@ -31,7 +32,16 @@ func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (r
 		if len(req.Parent) > 0 {
 			m.Where("pid = ?", gconv.Uint64(req.Parent))
 		}
-		m.Scan(&res.CommunityList)
+		res.Total, err = m.Count()
+
+		if req.PageNum == 0 {
+			req.PageNum = 1
+		}
+		res.CurrentPage = req.PageNum
+		if req.PageSize == 0 {
+			req.PageSize = systemConsts.PageSize
+		}
+		m.Page(req.PageNum, req.PageSize).Order(dao.Community.Columns().CommunityName + " asc").Scan(&res.List)
 		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
 	})
 	return

@@ -9,18 +9,23 @@ package v1
 
 import (
 	"github.com/gogf/gf/v2/frame/g"
+	commonApi "github.com/tiger1103/gfast/v3/api/v1/common"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model/entity"
 )
 
 type CommunitySearchReq struct {
 	g.Meta `path:"/community/search" tags:"小区管理" method:"get" summary:"搜索小区"`
+	commonApi.PageReq
+
 	Parent string `json:"parent"`
 	Name   string `json:"name"`
 }
 
 type CommunityRes struct {
-	g.Meta        `mime:"application/json"`
-	CommunityList []*entity.Community `json:"communityList"`
+	g.Meta `mime:"application/json"`
+	List   []*entity.Community `json:"communityList"`
+
+	commonApi.ListRes
 }
 
 type CommunityAddReq struct {
