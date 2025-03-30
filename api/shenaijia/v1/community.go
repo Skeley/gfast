@@ -14,7 +14,7 @@ import (
 )
 
 type CommunitySearchReq struct {
-	g.Meta `path:"/community/search" tags:"小区管理" method:"get" summary:"搜索小区"`
+	g.Meta `path:"/community" tags:"小区管理" method:"get" summary:"搜索小区"`
 	commonApi.PageReq
 
 	Parent string `json:"parent"`
