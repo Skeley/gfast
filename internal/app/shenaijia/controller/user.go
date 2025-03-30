@@ -16,6 +16,10 @@ type userController struct {
 	commonController.BaseController
 }
 
+func (c *userController) BoundCommunity(ctx context.Context, req *v1.UserBoundCommunityReq) (res *v1.UserBoundCommunityRes, err error) {
+	return
+}
+
 func (c *userController) BindCommunity(ctx context.Context, req *v1.UserBindCommunityReq) (res *v1.UserBindCommunityRes, err error) {
 	return service.User().BindCommunity(ctx, req)
 }

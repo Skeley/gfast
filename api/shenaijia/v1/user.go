@@ -26,6 +26,16 @@ type LoginRes struct {
 	Token  string              `json:"token"`
 }
 
+type UserBoundCommunityReq struct {
+	g.Meta `path:"/user/community" tags:"用户管理" method:"get" summary:"查询用户已绑定小区"`
+	UserId int64 `p:"userId" v:"required#用户id不能为空"`
+}
+
+type UserBoundCommunityRes struct {
+	g.Meta `mime:"application/json"`
+	List   []*Community `json:"list"`
+}
+
 type UserBindCommunityReq struct {
 	g.Meta      `path:"/user/community" tags:"用户管理" method:"put" summary:"用户绑定小区"`
 	UserId      int64 `p:"userId" v:"required#用户id不能为空"`

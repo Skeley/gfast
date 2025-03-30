@@ -1,0 +1,72 @@
+2025-03-30 17:19:05.400 [DEBU] {9022a714138a3118ff2cf24ddda14d53} [ 76 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:19:05.415 [DEBU] {e01f2d19138a3118002df24d1082ecaf} [ 15 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:19:05.429 [DEBU] {e0380e1a138a3118012df24dfc3fff28} [ 14 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:19:05.444 [DEBU] {5075ed1a138a3118022df24db35ef074} [ 15 ms] [default] [gfast-v32] [rows:5  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:19:05.475 [DEBU] {a879d61b138a3118032df24d5dd7a57f} [ 30 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (4,4)
+2025-03-30 17:22:27.481 [DEBU] {d89163b3418a31184aabb761652c5cfc} [1925 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:22:27.496 [DEBU] {58e13426428a31184babb76110395834} [ 14 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:22:27.512 [DEBU] {68271527428a31184cabb7617b36a4d2} [ 15 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:22:27.527 [DEBU] {38ee0428428a31184dabb761da77b20d} [ 15 ms] [default] [gfast-v32] [rows:5  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:22:27.557 [DEBU] {00cfe228428a31184eabb761695eb242} [ 30 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (4,4)
+2025-03-30 17:23:01.478 [DEBU] {306e640c4a8a3118bd9fbe5f29c70dc2} [ 69 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:23:01.492 [DEBU] {680893104a8a3118be9fbe5fa8e2f1c0} [ 13 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:24:54.627 [DEBU] {801f0f64648a3118242eb048670906d1} [ 78 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:24:54.652 [DEBU] {4008c668648a3118252eb0488624d500} [ 24 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community` WHERE pid = 0
+2025-03-30 17:24:54.664 [DEBU] {08e8356a648a3118262eb0488ecfcd08} [ 12 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:24:54.693 [DEBU] {0087f36a648a3118272eb04836446c49} [ 29 ms] [default] [gfast-v32] [rows:3  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE pid = 0 ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:24:54.709 [DEBU] {0859a96c648a3118282eb048377a043d} [ 16 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE 0=1
+2025-03-30 17:25:03.041 [DEBU] {18def358668a3118bcae4a5b1b092c93} [ 89 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:25:03.070 [DEBU] {38d94b5e668a3118bdae4a5b99df18d3} [ 28 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community` WHERE pid = 4
+2025-03-30 17:25:03.097 [DEBU] {e0ae0360668a3118beae4a5b3f0f17c7} [ 26 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:25:03.132 [DEBU] {b0619d61668a3118bfae4a5b5e827eb6} [ 34 ms] [default] [gfast-v32] [rows:2  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE pid = 4 ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:25:03.159 [DEBU] {889cab63668a3118c0ae4a5bf673f374} [ 27 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (4,4)
+2025-03-30 17:25:16.169 [DEBU] {f0201768698a311882bddb31c495f018} [ 78 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:25:16.191 [ERRO] {581ec66c698a311883bddb31a645287e} [ 21 ms] [default] [gfast-v32] [rows:0  ] SELECT COUNT(1) FROM `community` WHERE name LIKE '%碧桂园%'
+Error: Error 1054 (42S22): Unknown column 'name' in 'where clause' 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/community.(*sCommunity).Search.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/community/community.go:51
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/community.(*sCommunity).Search
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/community/community.go:43
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/community.Test_sCommunity_Search
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/community/community_test.go:25
+
+2025-03-30 17:25:16.222 [DEBU] {50e60e6e698a311884bddb31425a114e} [ 31 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:25:16.240 [ERRO] {c8d3ed6f698a311885bddb3146c022ea} [ 16 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE name LIKE '%碧桂园%' ORDER BY `community_name` asc LIMIT 0,100
+Error: Error 1054 (42S22): Unknown column 'name' in 'where clause' 
+Stack:
+1.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/community.(*sCommunity).Search.func1
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/community/community.go:61
+2.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/community.(*sCommunity).Search
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/community/community.go:43
+3.  github.com/tiger1103/gfast/v3/internal/app/shenaijia/logic/community.Test_sCommunity_Search
+    /Users/skyler/Projects/gfast/internal/app/shenaijia/logic/community/community_test.go:25
+
+2025-03-30 17:27:54.344 [DEBU] {28a0623b8e8a311840f2677e44391497} [ 89 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:27:54.375 [DEBU] {58e6b4408e8a311841f2677e351cca42} [ 31 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community` WHERE community_name LIKE '%碧桂园%'
+2025-03-30 17:27:54.390 [DEBU] {108291428e8a311842f2677ef79cda05} [ 15 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:27:54.430 [DEBU] {c8476d438e8a311843f2677e0e5b2026} [ 40 ms] [default] [gfast-v32] [rows:2  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE community_name LIKE '%碧桂园%' ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:27:54.465 [DEBU] {7896da458e8a311844f2677ef3c6269c} [ 34 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (4)
+2025-03-30 17:30:37.978 [DEBU] {807c9355b48a3118e733ec63d9afe8a6} [ 75 ms] [default] [gfast-v32] [rows:0  ] [txid:1] BEGIN
+2025-03-30 17:30:37.990 [DEBU] {807c9355b48a3118e733ec63d9afe8a6} [ 12 ms] [default] [gfast-v32] [rows:3  ] [txid:1] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:30:38.230 [DEBU] {807c9355b48a3118e733ec63d9afe8a6} [240 ms] [default] [gfast-v32] [rows:1  ] [txid:1] INSERT INTO `community`(`community_name`) VALUES('fsk1') 
+2025-03-30 17:30:38.247 [DEBU] {807c9355b48a3118e733ec63d9afe8a6} [ 17 ms] [default] [gfast-v32] [rows:0  ] [txid:1] COMMIT
+2025-03-30 17:30:47.429 [DEBU] {70807a87b68a31181aa48d40b58818b6} [ 99 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:30:47.469 [DEBU] {9831698db68a31181ba48d40d9fa371d} [ 39 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community` WHERE pid = 0
+2025-03-30 17:30:47.491 [DEBU] {c0c6c78fb68a31181ca48d4075554737} [ 21 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:30:47.745 [DEBU] {98520d91b68a31181da48d4077862802} [254 ms] [default] [gfast-v32] [rows:4  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE pid = 0 ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:30:47.770 [DEBU] {d0c53ea0b68a31181ea48d40b4e4dbff} [ 24 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE 0=1
+2025-03-30 17:31:17.151 [DEBU] {38033d73bd8a31186cb6ed6d0645a3c9} [ 96 ms] [default] [gfast-v32] [rows:0  ] [txid:1] BEGIN
+2025-03-30 17:31:17.394 [DEBU] {38033d73bd8a31186cb6ed6d0645a3c9} [242 ms] [default] [gfast-v32] [rows:3  ] [txid:1] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:31:17.876 [DEBU] {38033d73bd8a31186cb6ed6d0645a3c9} [481 ms] [default] [gfast-v32] [rows:1  ] [txid:1] INSERT INTO `community`(`pid`,`community_name`) VALUES(12,'fsk2') 
+2025-03-30 17:31:17.900 [DEBU] {38033d73bd8a31186cb6ed6d0645a3c9} [ 24 ms] [default] [gfast-v32] [rows:0  ] [txid:1] COMMIT
+2025-03-30 17:31:22.880 [DEBU] {c8bef6adbe8a31180d23fd5f9b0a8dbd} [544 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:31:22.922 [DEBU] {f04374cebe8a31180e23fd5fecb86dd3} [ 40 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community` WHERE pid = 0
+2025-03-30 17:31:22.942 [DEBU] {885aebd0be8a31180f23fd5f865529fd} [ 20 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:31:22.977 [DEBU] {f87423d2be8a31181023fd5f5af3f385} [ 34 ms] [default] [gfast-v32] [rows:4  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE pid = 0 ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:31:22.997 [DEBU] {78c33ed4be8a31181123fd5f5a4a844a} [ 19 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE 0=1
+2025-03-30 17:31:35.503 [DEBU] {001027bac18a31181f9d21044399df65} [ 78 ms] [default] [gfast-v32] [rows:3  ] SHOW FULL COLUMNS FROM `community`
+2025-03-30 17:31:35.528 [DEBU] {6819d4bec18a3118209d21045e730f89} [ 25 ms] [default] [gfast-v32] [rows:1  ] SELECT COUNT(1) FROM `community`
+2025-03-30 17:31:35.541 [DEBU] {e8aa52c0c18a3118219d2104c97911cf} [ 12 ms] [default] [gfast-v32] [rows:27 ] SHOW TABLES
+2025-03-30 17:31:35.557 [DEBU] {c81b42c1c18a3118229d21042105f08c} [ 13 ms] [default] [gfast-v32] [rows:7  ] SELECT `id`,`pid`,`community_name` FROM `community` ORDER BY `community_name` asc LIMIT 0,100
+2025-03-30 17:31:35.592 [DEBU] {b82c09c2c18a3118239d210401588189} [ 35 ms] [default] [gfast-v32] [rows:2  ] SELECT `id`,`pid`,`community_name` FROM `community` WHERE `id` IN (12,4,4)

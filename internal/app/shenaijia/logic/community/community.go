@@ -28,7 +28,7 @@ func (s *sCommunity) getCommunityName(ctx context.Context, ids []uint) (res map[
 	err = g.Try(ctx, func(ctx context.Context) {
 		m := dao.Community.Ctx(ctx)
 		var communityList []entity.Community
-		m.WhereIn("community_id", ids).Scan(&communityList)
+		m.WhereIn(dao.Community.Columns().Id, ids).Scan(&communityList)
 		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
 
 		for _, community := range communityList {
@@ -43,10 +43,10 @@ func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (r
 	err = g.Try(ctx, func(ctx context.Context) {
 		m := dao.Community.Ctx(ctx)
 		if len(req.Name) > 0 {
-			m.Where("name LIKE ?", "%"+req.Name+"%")
+			m = m.Where("community_name LIKE ?", "%"+req.Name+"%")
 		}
 		if len(req.Parent) > 0 {
-			m.Where("pid = ?", gconv.Uint64(req.Parent))
+			m = m.Where("pid = ?", gconv.Uint64(req.Parent))
 		}
 		res.Total, err = m.Count()
 
@@ -58,7 +58,7 @@ func (s *sCommunity) Search(ctx context.Context, req *api.CommunitySearchReq) (r
 			req.PageSize = systemConsts.PageSize
 		}
 		var communityList []entity.Community
-		m.Page(req.PageNum, req.PageSize).Order(dao.Community.Columns().CommunityName + " asc").Scan(&communityList)
+		err = m.Page(req.PageNum, req.PageSize).Order(dao.Community.Columns().CommunityName + " asc").Scan(&communityList)
 		liberr.ErrIsNil(ctx, err, "获取小区列表失败")
 		if len(communityList) == 0 {
 			return
@@ -114,7 +114,7 @@ func (s *sCommunity) Update(ctx context.Context, req *api.CommunityUpdateReq) (r
 	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		err = g.Try(ctx, func(ctx context.Context) {
 			m := dao.Community.Ctx(ctx).TX(tx)
-			m.Where(dao.Community.Columns().Id, req.Id)
+			m = m.Where(dao.Community.Columns().Id, req.Id)
 			_, e := m.Update(data)
 			liberr.ErrIsNil(ctx, e, "修改小区名字失败")
 		})
