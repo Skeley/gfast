@@ -23,7 +23,7 @@ type CommunitySearchReq struct {
 	g.Meta `path:"/community" tags:"小区管理" method:"get" summary:"搜索小区"`
 	commonApi.PageReq
 
-	Pid  string `json:"parentId"`
+	Pid  string `json:"pid"`
 	Name string `json:"name"`
 }
 
@@ -36,7 +36,7 @@ type CommunityRes struct {
 
 type CommunityAddReq struct {
 	g.Meta `path:"/community" tags:"小区管理" method:"post" summary:"添加小区"`
-	Pid    string `json:"parentId"`
+	Pid    string `json:"pid"`
 	Name   string `json:"name"`
 }
 
@@ -46,7 +46,7 @@ type CommunityUpdateReq struct {
 	g.Meta `path:"/community" tags:"小区管理" method:"put" summary:"修改小区名"`
 	Id     uint64 `json:"Id"`
 	Name   string `json:"name"`
-	Pid    string `json:"parentId"`
+	Pid    string `json:"pid"`
 }
 
 type CommunityUpdateRes struct{}
