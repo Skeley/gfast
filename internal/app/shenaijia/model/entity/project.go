@@ -12,7 +12,7 @@ import (
 type Project struct {
 	Id                      uint        `json:"id"                      orm:"id"                        description:"项目id"`
 	Valid                   int         `json:"valid"                   orm:"valid"                     description:"是否有效"`
-	Name                    string      `json:"name"                    orm:"name"                      description:"项目名"`
+	ProjectName             string      `json:"projectName"             orm:"project_name"              description:"项目名"`
 	CommunityId             uint        `json:"communityId"             orm:"community_id"              description:"小区id"`
 	StartDate               *gtime.Time `json:"startDate"               orm:"start_date"                description:"开工日期"`
 	EstimatedCompletionDate *gtime.Time `json:"estimatedCompletionDate" orm:"estimated_completion_date" description:"预计完工日期"`

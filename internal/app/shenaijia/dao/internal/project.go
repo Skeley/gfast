@@ -22,7 +22,7 @@ type ProjectDao struct {
 type ProjectColumns struct {
 	Id                      string // 项目id
 	Valid                   string // 是否有效
-	Name                    string // 项目名
+	ProjectName             string // 项目名
 	CommunityId             string // 小区id
 	StartDate               string // 开工日期
 	EstimatedCompletionDate string // 预计完工日期
@@ -40,7 +40,7 @@ type ProjectColumns struct {
 var projectColumns = ProjectColumns{
 	Id:                      "id",
 	Valid:                   "valid",
-	Name:                    "name",
+	ProjectName:             "project_name",
 	CommunityId:             "community_id",
 	StartDate:               "start_date",
 	EstimatedCompletionDate: "estimated_completion_date",

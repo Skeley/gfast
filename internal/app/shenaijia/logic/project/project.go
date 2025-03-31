@@ -75,7 +75,7 @@ func (s *sProject) SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *
 	res = &api.SysProjectAddRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
 		data := entity.Project{
-			Name:        req.ProjectName,
+			ProjectName: req.ProjectName,
 			CommunityId: req.CommunityId,
 			Progress:    req.Progress,
 			Manager:     req.Manager,
@@ -98,7 +98,7 @@ func (s *sProject) SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *
 func (s *sProject) SysEdit(ctx context.Context, req *api.SysProjectEditReq) (res *api.SysProjectEditRes, err error) {
 	res = &api.SysProjectEditRes{}
 	data := g.Map{
-		dao.Project.Columns().Name:             req.ProjectName,
+		dao.Project.Columns().ProjectName:      req.ProjectName,
 		dao.Project.Columns().CommunityId:      req.CommunityId,
 		dao.Project.Columns().Progress:         req.Progress,
 		dao.Project.Columns().InspectionReport: req.InspectionReport,
