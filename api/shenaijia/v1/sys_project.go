@@ -17,8 +17,8 @@ type SysProjectSearchReq struct {
 	g.Meta `path:"/project" tags:"工程项目管理" method:"get" summary:"搜索项目信息"`
 	commonApi.PageReq
 
-	Name                string   `json:"name"`
-	CommunityId         string   `json:"communityId v:"required"`
+	ProjectName         string   `json:"projectName"`
+	CommunityId         string   `json:"communityId"`
 	StartDateRange      []string `json:"startDateRange" v:"foreach|date-format:Y-m-d"`
 	CompletionDateRange []string `json:"completionDateRange" v:"foreach|date-format:Y-m-d"`
 	Creator             string   `json:"creator"`
@@ -34,7 +34,7 @@ type SysProjectSearchRes struct {
 
 type SysProjectAddReq struct {
 	g.Meta                  `path:"/project" tags:"工程项目管理" method:"post" summary:"添加项目"`
-	Name                    string `p:"name"`
+	ProjectName             string `p:"projectName"`
 	CommunityId             uint   `p:"communityId" v:"required"`
 	StartDate               string `p:"startDate" v:"date-format"`
 	EstimatedCompletionDate string `p:"estimatedCompletionDate" v:"date-format:Y-m-d|after:StartDate"`
@@ -49,7 +49,7 @@ type SysProjectAddRes struct{}
 type SysProjectEditReq struct {
 	g.Meta                  `path:"/project" tags:"工程项目管理" method:"put" summary:"更新项目信息"`
 	ProjectId               int64  `p:"projectId" v:"required|min:1#主键ID不能为空|主键ID必须为大于0的值"`
-	Name                    string `p:"name"`
+	ProjectName             string `p:"projectName"`
 	CommunityId             uint   `p:"communityId" v:"required"`
 	StartDate               string `p:"startDate" v:"date-format"`
 	EstimatedCompletionDate string `p:"estimatedCompletionDate" v:"date-format:Y-m-d|after:StartDate"`

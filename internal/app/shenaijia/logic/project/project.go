@@ -35,21 +35,24 @@ func (s *sProject) SysList(ctx context.Context, req *api.SysProjectSearchReq) (r
 				dao.Project.Table(),
 				dao.Project.Columns().CommunityId,
 				dao.Community.Columns().Id))
-		m.Where(dao.Project.Columns().Valid, true)
+		m = m.Where(dao.Project.Columns().Valid, true)
+		if len(req.CommunityId) > 0 {
+			m = m.Where(dao.Project.Columns().CommunityId, gconv.Uint(req.CommunityId))
+		}
 		if len(req.Manager) > 0 {
-			m.Where(entity.Project{Manager: gconv.Uint(req.Manager)})
+			m = m.Where(entity.Project{Manager: gconv.Uint(req.Manager)})
 		}
 		if len(req.Associate) > 0 {
-			m.Where(entity.Project{Associate: gconv.Uint(req.Associate)})
+			m = m.Where(entity.Project{Associate: gconv.Uint(req.Associate)})
 		}
 		if len(req.CommunityId) > 0 {
-			m.Where(entity.Project{CommunityId: gconv.Uint(req.CommunityId)})
+			m = m.Where(entity.Project{CommunityId: gconv.Uint(req.CommunityId)})
 		}
 		if len(req.StartDateRange) > 0 {
-			m.WhereBetween(dao.Project.Columns().StartDate, req.StartDateRange[0], req.StartDateRange[1])
+			m = m.WhereBetween(dao.Project.Columns().StartDate, req.StartDateRange[0], req.StartDateRange[1])
 		}
 		if len(req.CompletionDateRange) > 0 {
-			m.WhereBetween(dao.Project.Columns().CompletionDate, req.CompletionDateRange[0], req.CompletionDateRange[1])
+			m = m.WhereBetween(dao.Project.Columns().CompletionDate, req.CompletionDateRange[0], req.CompletionDateRange[1])
 		}
 		res.Total, err = m.Count()
 		liberr.ErrIsNil(ctx, err, "获取项目列表失败")
@@ -73,7 +76,7 @@ func (s *sProject) SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *
 	res = &api.SysProjectAddRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
 		data := entity.Project{
-			Name:        req.Name,
+			Name:        req.ProjectName,
 			CommunityId: req.CommunityId,
 			Progress:    req.Progress,
 			Manager:     req.Manager,
@@ -95,33 +98,31 @@ func (s *sProject) SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *
 
 func (s *sProject) SysEdit(ctx context.Context, req *api.SysProjectEditReq) (res *api.SysProjectEditRes, err error) {
 	res = &api.SysProjectEditRes{}
-	//data := g.Map{
-	//	dao.Project.Columns().Name:             req.Name,
-	//	dao.Project.Columns().CommunityMajorId: req.CommunityMajorId,
-	//	dao.Project.Columns().CommunityMinorId: req.CommunityMinorId,
-	//	dao.Project.Columns().Progress:         req.Progress,
-	//	dao.Project.Columns().InspectionReport: req.InspectionReport,
-	//	dao.Project.Columns().AcceptanceReport: req.AcceptanceReport,
-	//	dao.Project.Columns().Manager:          req.Manager,
-	//	dao.Project.Columns().Associate:        req.Associate,
-	//}
-	//if len(req.StartDate) > 0 {
-	//	data[dao.Project.Columns().StartDate] = gtime.New(req.StartDate)
-	//}
-	//if len(req.EstimatedCompletionDate) > 0 {
-	//	data[dao.Project.Columns().EstimatedCompletionDate] = gtime.New(req.EstimatedCompletionDate)
-	//}
-	//if len(req.CompletionDate) > 0 {
-	//	data[dao.Project.Columns().CompletionDate] = gtime.New(req.CompletionDate)
-	//}
-	//
-	//err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
-	//	err = g.Try(ctx, func(ctx context.Context) {
-	//		_, e := dao.Project.Ctx(ctx).TX(tx).WherePri(req.ProjectId).Update(data)
-	//		liberr.ErrIsNil(ctx, e, "修改项目失败")
-	//	})
-	//	return err
-	//})
+	data := g.Map{
+		dao.Project.Columns().Name:             req.ProjectName,
+		dao.Project.Columns().CommunityId:      req.CommunityId,
+		dao.Project.Columns().Progress:         req.Progress,
+		dao.Project.Columns().InspectionReport: req.InspectionReport,
+		dao.Project.Columns().AcceptanceReport: req.AcceptanceReport,
+		dao.Project.Columns().Manager:          req.Manager,
+		dao.Project.Columns().Associate:        req.Associate,
+	}
+	if len(req.StartDate) > 0 {
+		data[dao.Project.Columns().StartDate] = gtime.New(req.StartDate)
+	}
+	if len(req.EstimatedCompletionDate) > 0 {
+		data[dao.Project.Columns().EstimatedCompletionDate] = gtime.New(req.EstimatedCompletionDate)
+	}
+	if len(req.CompletionDate) > 0 {
+		data[dao.Project.Columns().CompletionDate] = gtime.New(req.CompletionDate)
+	}
+	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		err = g.Try(ctx, func(ctx context.Context) {
+			_, e := dao.Project.Ctx(ctx).TX(tx).WherePri(req.ProjectId).Update(data)
+			liberr.ErrIsNil(ctx, e, "修改项目失败")
+		})
+		return err
+	})
 	return
 }
 
