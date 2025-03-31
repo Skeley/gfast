@@ -12,11 +12,11 @@ import (
 
 func Test_sSysProject_List(t *testing.T) {
 	ctx := context.Background()
-	req := api.SysProjectListReq{}
+	req := api.SysProjectSearchReq{}
 
 	s := &sProject{}
 	gotRes, _ := s.SysList(ctx, &req)
-	for _, project := range gotRes.ProjectList {
+	for _, project := range gotRes.List {
 		fmt.Println(project)
 	}
 }

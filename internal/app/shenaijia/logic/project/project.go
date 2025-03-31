@@ -10,7 +10,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	api "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/dao"
-	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model/entity"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
 	systemConsts "github.com/tiger1103/gfast/v3/internal/app/system/consts"
@@ -64,7 +63,7 @@ func (s *sProject) SysList(ctx context.Context, req *api.SysProjectSearchReq) (r
 		if req.PageSize == 0 {
 			req.PageSize = systemConsts.PageSize
 		}
-		err = m.Fields(model.ProjectRes{}).Fields(dao.Community.Columns().CommunityName).
+		err = m.Fields("project.*").Fields(dao.Community.Columns().CommunityName).
 			Page(req.PageNum, req.PageSize).Order(dao.Project.Columns().StartDate + " desc").
 			Scan(&res.List)
 		liberr.ErrIsNil(ctx, err, "获取项目列表失败")
