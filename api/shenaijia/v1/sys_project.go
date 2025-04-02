@@ -19,8 +19,8 @@ type SysProjectSearchReq struct {
 
 	ProjectName         string   `json:"projectName"`
 	CommunityId         string   `json:"communityId"`
-	StartDateRange      []string `json:"startDateRange" v:"foreach|date-format:Y-m-d"`
-	CompletionDateRange []string `json:"completionDateRange" v:"foreach|date-format:Y-m-d"`
+	StartDateRange      []string `json:"startDateRange" v:"foreach|datetime"`
+	CompletionDateRange []string `json:"completionDateRange" v:"foreach|datetime"`
 	Creator             string   `json:"creator"`
 	Manager             string   `json:"manager"`
 	Associate           string   `json:"associate"`
@@ -36,8 +36,8 @@ type SysProjectAddReq struct {
 	g.Meta                  `path:"/project" tags:"工程项目管理" method:"post" summary:"添加项目"`
 	ProjectName             string `p:"projectName"`
 	CommunityId             uint   `p:"communityId" v:"required"`
-	StartDate               string `p:"startDate" v:"date-format"`
-	EstimatedCompletionDate string `p:"estimatedCompletionDate" v:"date-format:Y-m-d|after:StartDate"`
+	StartDate               string `p:"startDate" v:"datetime"`
+	EstimatedCompletionDate string `p:"estimatedCompletionDate" v:"datetime|after:StartDate"`
 	InspectionReport        string `p:"inspectionReport"`
 	Progress                uint   `v:"required|between:0,100" json:"progress"`
 	Creator                 string `p:"creator"`
@@ -51,9 +51,9 @@ type SysProjectEditReq struct {
 	ProjectId               int64  `p:"projectId" v:"required|min:1#主键ID不能为空|主键ID必须为大于0的值"`
 	ProjectName             string `p:"projectName"`
 	CommunityId             uint   `p:"communityId" v:"required"`
-	StartDate               string `p:"startDate" v:"date-format"`
-	EstimatedCompletionDate string `p:"estimatedCompletionDate" v:"date-format:Y-m-d|after:StartDate"`
-	CompletionDate          string `p:"completionDate" v:"date-format:Y-m-d|after:StartDate"`
+	StartDate               string `p:"startDate" v:"datetime"`
+	EstimatedCompletionDate string `p:"estimatedCompletionDate" v:"datetime|after:StartDate"`
+	CompletionDate          string `p:"completionDate" v:"datetime|after:StartDate"`
 	InspectionReport        string `p:"inspectionReport"`
 	AcceptanceReport        string `p:"acceptanceReport"`
 	Progress                uint   `v:"required|between:0,100" json:"progress"`
