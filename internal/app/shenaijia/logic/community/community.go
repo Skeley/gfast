@@ -2,6 +2,8 @@ package community
 
 import (
 	"context"
+	"errors"
+	"github.com/go-sql-driver/mysql"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/gconv"
@@ -103,6 +105,11 @@ func (s *sCommunity) Add(ctx context.Context, req *api.CommunityAddReq) (res *ap
 		err = g.Try(ctx, func(ctx context.Context) {
 			m := dao.Community.Ctx(ctx).TX(tx)
 			_, e := m.Insert(data)
+			var sqlErr *mysql.MySQLError
+			if errors.As(e, &sqlErr) && sqlErr.Number == 1062 {
+				g.Throw(errors.New("添加小区失败: 重复添加"))
+			}
+			// mysql.MySQLError{}
 			liberr.ErrIsNil(ctx, e, "添加小区失败")
 		})
 		return err

@@ -11,56 +11,58 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 )
 
-// UserTypeDao is the data access object for the table user_type.
-type UserTypeDao struct {
-	table   string          // table is the underlying table name of the DAO.
-	group   string          // group is the database configuration group name of the current DAO.
-	columns UserTypeColumns // columns contains all the column names of Table for convenient usage.
+// TaskTempletDao is the data access object for the table task_templet.
+type TaskTempletDao struct {
+	table   string             // table is the underlying table name of the DAO.
+	group   string             // group is the database configuration group name of the current DAO.
+	columns TaskTempletColumns // columns contains all the column names of Table for convenient usage.
 }
 
-// UserTypeColumns defines and stores column names for the table user_type.
-type UserTypeColumns struct {
-	Type string // 用户类型
-	Name string // name
+// TaskTempletColumns defines and stores column names for the table task_templet.
+type TaskTempletColumns struct {
+	Id   string //
+	Name string //
+	Type string //
 }
 
-// userTypeColumns holds the columns for the table user_type.
-var userTypeColumns = UserTypeColumns{
-	Type: "type",
+// taskTempletColumns holds the columns for the table task_templet.
+var taskTempletColumns = TaskTempletColumns{
+	Id:   "id",
 	Name: "name",
+	Type: "type",
 }
 
-// NewUserTypeDao creates and returns a new DAO object for table data access.
-func NewUserTypeDao() *UserTypeDao {
-	return &UserTypeDao{
+// NewTaskTempletDao creates and returns a new DAO object for table data access.
+func NewTaskTempletDao() *TaskTempletDao {
+	return &TaskTempletDao{
 		group:   "default",
-		table:   "user_type",
-		columns: userTypeColumns,
+		table:   "task_templet",
+		columns: taskTempletColumns,
 	}
 }
 
 // DB retrieves and returns the underlying raw database management object of the current DAO.
-func (dao *UserTypeDao) DB() gdb.DB {
+func (dao *TaskTempletDao) DB() gdb.DB {
 	return g.DB(dao.group)
 }
 
 // Table returns the table name of the current DAO.
-func (dao *UserTypeDao) Table() string {
+func (dao *TaskTempletDao) Table() string {
 	return dao.table
 }
 
 // Columns returns all column names of the current DAO.
-func (dao *UserTypeDao) Columns() UserTypeColumns {
+func (dao *TaskTempletDao) Columns() TaskTempletColumns {
 	return dao.columns
 }
 
 // Group returns the database configuration group name of the current DAO.
-func (dao *UserTypeDao) Group() string {
+func (dao *TaskTempletDao) Group() string {
 	return dao.group
 }
 
 // Ctx creates and returns a Model for the current DAO. It automatically sets the context for the current operation.
-func (dao *UserTypeDao) Ctx(ctx context.Context) *gdb.Model {
+func (dao *TaskTempletDao) Ctx(ctx context.Context) *gdb.Model {
 	return dao.DB().Model(dao.table).Safe().Ctx(ctx)
 }
 
@@ -70,6 +72,6 @@ func (dao *UserTypeDao) Ctx(ctx context.Context) *gdb.Model {
 //
 // Note: Do not commit or roll back the transaction in function f,
 // as it is automatically handled by this function.
-func (dao *UserTypeDao) Transaction(ctx context.Context, f func(ctx context.Context, tx gdb.TX) error) (err error) {
+func (dao *TaskTempletDao) Transaction(ctx context.Context, f func(ctx context.Context, tx gdb.TX) error) (err error) {
 	return dao.Ctx(ctx).Transaction(ctx, f)
 }

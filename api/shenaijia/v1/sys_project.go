@@ -71,7 +71,7 @@ type SysProjectDelReq struct {
 type SysProjectDelRes struct{}
 
 type SysProjectReviewReq struct {
-	g.Meta    `path:"/project/delete" tags:"工程项目管理" method:"delete" summary:"项目审核"`
+	g.Meta    `path:"/project/review" tags:"工程项目管理" method:"put" summary:"项目审核"`
 	ProjectId uint `v:"required" json:"projectId"`
 	Associate uint `json:"associate"`
 }

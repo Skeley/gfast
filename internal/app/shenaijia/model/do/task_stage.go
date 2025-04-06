@@ -10,11 +10,12 @@ import (
 
 // TaskStage is the golang structure of table task_stage for DAO operations like Where/Data.
 type TaskStage struct {
-	g.Meta  `orm:"table:task_stage, do:true"`
-	Id      interface{} // stage id
-	Type    interface{} // 所属任务类型
-	Name    interface{} // 阶段名
-	Icon    interface{} // 图标
-	Comment interface{} // 描述
-	Order   interface{} // 任务流位置
+	g.Meta    `orm:"table:task_stage, do:true"`
+	Id        interface{} // stage id
+	TaskId    interface{} //
+	TempletId interface{} // 所属任务模板
+	Name      interface{} // 阶段名
+	Icon      interface{} // 图标
+	Comment   interface{} // 描述
+	Position  interface{} // 任务流位置
 }

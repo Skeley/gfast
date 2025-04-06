@@ -10,7 +10,8 @@ import (
 
 // TaskType is the golang structure of table task_type for DAO operations like Where/Data.
 type TaskType struct {
-	g.Meta `orm:"table:task_type, do:true"`
-	Type   interface{} // 类型
-	Name   interface{} // 类型名
+	g.Meta   `orm:"table:task_type, do:true"`
+	Id       interface{} //
+	Name     interface{} //
+	Standard interface{} // 是否为标准类型
 }

@@ -20,14 +20,16 @@ type TaskTypeDao struct {
 
 // TaskTypeColumns defines and stores column names for the table task_type.
 type TaskTypeColumns struct {
-	Type string // 类型
-	Name string // 类型名
+	Id       string //
+	Name     string //
+	Standard string // 是否为标准类型
 }
 
 // taskTypeColumns holds the columns for the table task_type.
 var taskTypeColumns = TaskTypeColumns{
-	Type: "type",
-	Name: "name",
+	Id:       "id",
+	Name:     "name",
+	Standard: "standard",
 }
 
 // NewTaskTypeDao creates and returns a new DAO object for table data access.

@@ -8,19 +8,19 @@ import (
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/dao/internal"
 )
 
-// internalUserTypeDao is an internal type for wrapping the internal DAO implementation.
-type internalUserTypeDao = *internal.UserTypeDao
+// internalTaskTempletDao is an internal type for wrapping the internal DAO implementation.
+type internalTaskTempletDao = *internal.TaskTempletDao
 
-// userTypeDao is the data access object for the table user_type.
+// taskTempletDao is the data access object for the table task_templet.
 // You can define custom methods on it to extend its functionality as needed.
-type userTypeDao struct {
-	internalUserTypeDao
+type taskTempletDao struct {
+	internalTaskTempletDao
 }
 
 var (
-	// UserType is a globally accessible object for table user_type operations.
-	UserType = userTypeDao{
-		internal.NewUserTypeDao(),
+	// TaskTemplet is a globally accessible object for table task_templet operations.
+	TaskTemplet = taskTempletDao{
+		internal.NewTaskTempletDao(),
 	}
 )
 

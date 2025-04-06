@@ -16,11 +16,12 @@ func (router *Router) BindShenAiJiaController(ctx context.Context, group *ghttp.
 		//context拦截器
 		group.Middleware(service.Middleware().Ctx)
 		group.Bind(
-			controller.Project,
-			controller.Community,
-			controller.Task,
-			controller.File,
-			controller.User,
+		//controller.Project,
+		//controller.Community,
+		//controller.TaskTemplet,
+		//controller.TempletType,
+		//controller.File,
+		//controller.User,
 		)
 	})
 }

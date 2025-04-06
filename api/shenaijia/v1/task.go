@@ -65,30 +65,3 @@ type TaskDeleteReq struct {
 }
 
 type TaskDeleteRes struct{}
-
-type TaskListTypeReq struct {
-	g.Meta `path:"/task/type/list" tags:"项目任务管理" method:"get" summary:"获取所有任务类型"`
-}
-
-type TaskListTypeRes struct {
-	g.Meta   `mime:"application/json"`
-	TypeList []struct {
-		Id       uint   `json:"id"`
-		Type     string `json:"type"`
-		Standard bool   `json:"standard"`
-	} `json:"typeList"`
-}
-
-type TaskAddTypeReq struct {
-	g.Meta `path:"/task/type" tags:"项目任务管理" method:"post" summary:"添加任务类型"`
-	Type   string `v:"required" json:"type"`
-}
-
-type TaskAddTypeRes struct{}
-
-type TaskDeleteTypeReq struct {
-	g.Meta `path:"/task/type" tags:"项目任务管理" method:"post" summary:"添加任务类型"`
-	Type   string `v:"required" json:"type"`
-}
-
-type TaskDeleteTypeRes struct{}

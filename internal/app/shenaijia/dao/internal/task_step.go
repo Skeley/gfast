@@ -20,20 +20,28 @@ type TaskStepDao struct {
 
 // TaskStepColumns defines and stores column names for the table task_step.
 type TaskStepColumns struct {
-	Id      string // 步骤id
-	StageId string // stage id
-	Name    string // 步骤名
-	Comment string // 描述
-	Order   string // 排序位置
+	Id                      string // 步骤id
+	TaskId                  string //
+	StageId                 string // stage id
+	Name                    string // 步骤名
+	State                   string // 0:未开始;1:进行中;2:已完成
+	EstimatedCompletionDate string // 预计完工日期
+	CompletionDate          string //
+	Comment                 string // 描述
+	Position                string // 排序位置
 }
 
 // taskStepColumns holds the columns for the table task_step.
 var taskStepColumns = TaskStepColumns{
-	Id:      "id",
-	StageId: "stage_id",
-	Name:    "name",
-	Comment: "comment",
-	Order:   "order",
+	Id:                      "id",
+	TaskId:                  "task_id",
+	StageId:                 "stage_id",
+	Name:                    "name",
+	State:                   "state",
+	EstimatedCompletionDate: "estimated_completion_date",
+	CompletionDate:          "completion_date",
+	Comment:                 "comment",
+	Position:                "position",
 }
 
 // NewTaskStepDao creates and returns a new DAO object for table data access.

@@ -1,8 +1,4 @@
-// =================================================================================
-// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
-// =================================================================================
-
-package entity
+package model
 
 import (
 	"github.com/gogf/gf/v2/os/gtime"
@@ -18,5 +14,4 @@ type TaskStep struct {
 	EstimatedCompletionDate *gtime.Time `json:"estimatedCompletionDate" orm:"estimated_completion_date" description:"预计完工日期"`
 	CompletionDate          *gtime.Time `json:"completionDate"          orm:"completion_date"           description:""`
 	Comment                 string      `json:"comment"                 orm:"comment"                   description:"描述"`
-	Position                uint        `json:"position"                orm:"position"                  description:"排序位置"`
 }

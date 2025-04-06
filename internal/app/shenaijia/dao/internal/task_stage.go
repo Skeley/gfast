@@ -20,22 +20,24 @@ type TaskStageDao struct {
 
 // TaskStageColumns defines and stores column names for the table task_stage.
 type TaskStageColumns struct {
-	Id      string // stage id
-	Type    string // 所属任务类型
-	Name    string // 阶段名
-	Icon    string // 图标
-	Comment string // 描述
-	Order   string // 任务流位置
+	Id        string // stage id
+	TaskId    string //
+	TempletId string // 所属任务模板
+	Name      string // 阶段名
+	Icon      string // 图标
+	Comment   string // 描述
+	Position  string // 任务流位置
 }
 
 // taskStageColumns holds the columns for the table task_stage.
 var taskStageColumns = TaskStageColumns{
-	Id:      "id",
-	Type:    "type",
-	Name:    "name",
-	Icon:    "icon",
-	Comment: "comment",
-	Order:   "order",
+	Id:        "id",
+	TaskId:    "task_id",
+	TempletId: "templet_id",
+	Name:      "name",
+	Icon:      "icon",
+	Comment:   "comment",
+	Position:  "position",
 }
 
 // NewTaskStageDao creates and returns a new DAO object for table data access.
