@@ -182,19 +182,19 @@ func (s *sTask) TempletSetFlow(ctx context.Context, req *v1.TaskTempletSetFlowRe
 	res = &v1.TaskTempletSetFlowRes{}
 	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		err = g.Try(ctx, func(ctx context.Context) {
-			stageIds, e := s.listStageIds(ctx, req.TempletId)
+			stageIds, e := s.listTempletStageIds(ctx, req.TempletId)
 			liberr.ErrIsNil(ctx, e, "删除旧流程失败, 流程终止")
 			for _, stageId := range stageIds {
-				e = s.deleteSteps(ctx, tx, stageId)
+				e = s.deleteTempletSteps(ctx, tx, stageId)
 				liberr.ErrIsNil(ctx, e, "删除旧流程失败, 流程终止")
 			}
-			e = s.deleteStages(ctx, tx, req.TempletId)
+			e = s.deleteTempletStages(ctx, tx, req.TempletId)
 			liberr.ErrIsNil(ctx, e, "删除旧流程失败, 流程终止")
 			// 设置新流程
-			stageIds, e = s.addStages(ctx, tx, req.TempletId, req.Flow.Stages)
+			stageIds, e = s.addTempletStages(ctx, tx, req.TempletId, req.Flow.Stages)
 			liberr.ErrIsNil(ctx, e, "添加流程失败: 创建stage失败")
 			for i, stage := range req.Flow.Stages {
-				e = s.addSteps(ctx, tx, stageIds[i], stage.Steps)
+				e = s.addTempletSteps(ctx, tx, stageIds[i], stage.Steps)
 				liberr.ErrIsNil(ctx, e, "添加流程失败: 创建step失败")
 			}
 		})
@@ -205,20 +205,20 @@ func (s *sTask) TempletSetFlow(ctx context.Context, req *v1.TaskTempletSetFlowRe
 
 func (s *sTask) TempletGetFlow(ctx context.Context, req *v1.TaskTempletGetFlowReq) (res *v1.TaskTempletGetFlowRes, err error) {
 	res = &v1.TaskTempletGetFlowRes{
-		Flow: &v1.TaskFlow{},
+		Flow: &v1.TempletFlow{},
 	}
 	err = g.Try(ctx, func(ctx context.Context) {
-		stages, e := s.listStage(ctx, req.TempletId)
+		stages, e := s.listTempletStage(ctx, req.TempletId)
 		liberr.ErrIsNil(ctx, e, "获取流程失败")
 		for _, stage := range stages {
 			stageApi := v1.TaskStage{
 				Name: stage.Name,
 				Icon: stage.Icon,
 			}
-			steps, e := s.listStep(ctx, stage.Id)
+			steps, e := s.listTempletStep(ctx, stage.Id)
 			liberr.ErrIsNil(ctx, e, "获取流程失败")
 			for _, step := range steps {
-				stageApi.Steps = append(stageApi.Steps, &v1.TaskStep{
+				stageApi.Steps = append(stageApi.Steps, &v1.TempletStep{
 					Name:    step.Name,
 					Comment: step.Comment,
 				})
@@ -232,20 +232,8 @@ func (s *sTask) TempletGetFlow(ctx context.Context, req *v1.TaskTempletGetFlowRe
 	return
 }
 
-func (s *sTask) ListStage(ctx context.Context, req *v1.TaskListStageReq) (res *v1.TaskListStageRes, err error) {
-	res = &v1.TaskListStageRes{}
-	err = g.Try(ctx, func(ctx context.Context) {
-		err = dao.TaskStage.Ctx(ctx).
-			Where(dao.TaskStage.Columns().TempletId, req.TempletId).
-			Where(dao.TaskStage.Columns().TaskId, -1).
-			OrderAsc(dao.TaskStage.Columns().Position).Scan(&res.List)
-		liberr.ErrIsNil(ctx, err, "获取任务阶段失败")
-	})
-	return
-}
-
-func (s *sTask) listStageIds(ctx context.Context, templetId uint) (stageIds []uint, err error) {
-	stages, e := s.listStage(ctx, templetId)
+func (s *sTask) listTempletStageIds(ctx context.Context, templetId uint) (stageIds []uint64, err error) {
+	stages, e := s.listTempletStage(ctx, templetId)
 	if e != nil {
 		return nil, e
 	}
@@ -255,9 +243,14 @@ func (s *sTask) listStageIds(ctx context.Context, templetId uint) (stageIds []ui
 	return
 }
 
-func (s *sTask) listStage(ctx context.Context, templetId uint) (stages []entity.TaskStage, err error) {
+func (s *sTask) listTempletStage(ctx context.Context, templetId uint) (stages []entity.TaskStage, err error) {
+	return s.listStage(ctx, -1, templetId)
+}
+
+func (s *sTask) listStage(ctx context.Context, taskId int64, templetId uint) (stages []entity.TaskStage, err error) {
 	err = g.Try(ctx, func(ctx context.Context) {
 		e := dao.TaskStage.Ctx(ctx).
+			Where(dao.TaskStage.Columns().TaskId, taskId).
 			Where(dao.TaskStage.Columns().TempletId, templetId).
 			Where(dao.TaskStage.Columns().TaskId, -1).
 			OrderAsc(dao.TaskStage.Columns().Position).Scan(&stages)
@@ -266,10 +259,15 @@ func (s *sTask) listStage(ctx context.Context, templetId uint) (stages []entity.
 	return
 }
 
-func (s *sTask) addStages(ctx context.Context, tx gdb.TX, templetId uint, stages []*v1.TaskStage) (ids []uint, err error) {
+func (s *sTask) addTempletStages(ctx context.Context, tx gdb.TX, templetId uint, stages []*v1.TaskStage) (ids []uint64, err error) {
+	return s.addStages(ctx, tx, -1, templetId, stages)
+}
+
+func (s *sTask) addStages(ctx context.Context, tx gdb.TX, taskId int64, templetId uint, stages []*v1.TaskStage) (ids []uint64, err error) {
 	dataList := g.List{}
 	for i, v := range stages {
 		dataList = append(dataList, g.Map{
+			dao.TaskStage.Columns().TaskId:    taskId,
 			dao.TaskStage.Columns().TempletId: templetId,
 			dao.TaskStage.Columns().Name:      v.Name,
 			dao.TaskStage.Columns().Icon:      v.Icon,
@@ -282,76 +280,34 @@ func (s *sTask) addStages(ctx context.Context, tx gdb.TX, templetId uint, stages
 		firstId, _ := insertRes.LastInsertId()
 		rowCnt, _ := insertRes.RowsAffected()
 		for i := int64(0); i < rowCnt; i++ {
-			ids = append(ids, uint(firstId+i))
+			ids = append(ids, uint64(firstId+i))
 		}
 	})
 	return
 }
+func (s *sTask) deleteTempletStages(ctx context.Context, tx gdb.TX, templetId uint) (err error) {
+	return s.deleteStages(ctx, tx, -1, templetId)
+}
 
-func (s *sTask) deleteStages(ctx context.Context, tx gdb.TX, templetId uint) (err error) {
+func (s *sTask) deleteStages(ctx context.Context, tx gdb.TX, taskId int64, templetId uint) (err error) {
 	err = g.Try(ctx, func(ctx context.Context) {
 		_, e := dao.TaskStage.Ctx(ctx).TX(tx).
 			Where(dao.TaskStage.Columns().TempletId, templetId).
-			Where(dao.TaskStage.Columns().TaskId, -1).
+			Where(dao.TaskStage.Columns().TaskId, taskId).
 			Delete()
 		liberr.ErrIsNil(ctx, e, "删除模板stage失败")
 	})
 	return nil
 }
 
-func (s *sTask) AddStage(ctx context.Context, req *v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
-	res = &v1.TaskAddStageRes{}
-	data := g.Map{
-		dao.TaskStage.Columns().TempletId: req.TempletId,
-		dao.TaskStage.Columns().Name:      req.Name,
-		dao.TaskStage.Columns().Icon:      req.Icon,
-		dao.TaskStage.Columns().Position:  req.Position,
-	}
-	err = g.Try(ctx, func(ctx context.Context) {
-		_, e := dao.TaskStage.Ctx(ctx).Insert(data)
-		liberr.ErrIsNil(ctx, e, "添加阶段失败")
-	})
-	return
+func (s *sTask) listTempletStep(ctx context.Context, stageId uint64) (res []*entity.TaskStep, err error) {
+	return s.listStep(ctx, -1, stageId)
 }
 
-func (s *sTask) UpdateStage(ctx context.Context, req *v1.TaskUpdateStageReq) (res *v1.TaskUpdateStageRes, err error) {
-	res = &v1.TaskUpdateStageRes{}
-	data := g.Map{
-		dao.TaskStage.Columns().Name: req.Name,
-		dao.TaskStage.Columns().Icon: req.Icon,
-	}
-	err = g.Try(ctx, func(ctx context.Context) {
-		_, e := dao.TaskStage.Ctx(ctx).WherePri(req.StageId).Update(data)
-		liberr.ErrIsNil(ctx, e, "更新阶段失败")
-	})
-	return
-}
-
-func (s *sTask) DeleteStage(ctx context.Context, req *v1.TaskDeleteStageReq) (res *v1.TaskDeleteStageRes, err error) {
-	res = &v1.TaskDeleteStageRes{}
-	err = g.Try(ctx, func(ctx context.Context) {
-		_, e := dao.TaskStage.Ctx(ctx).WherePri(req.StageId).Delete()
-		liberr.ErrIsNil(ctx, e, "删除阶段失败")
-	})
-	return
-}
-
-func (s *sTask) ListStep(ctx context.Context, req *v1.TaskListStepReq) (res *v1.TaskListStepRes, err error) {
-	res = &v1.TaskListStepRes{}
+func (s *sTask) listStep(ctx context.Context, taskId int64, stageId uint64) (res []*entity.TaskStep, err error) {
 	err = g.Try(ctx, func(ctx context.Context) {
 		err = dao.TaskStep.Ctx(ctx).
-			Where(dao.TaskStep.Columns().StageId, req.StageId).
-			Where(dao.TaskStep.Columns().TaskId, req.TaskId).
-			Order(dao.TaskStep.Columns().Position).Scan(&res.List)
-		liberr.ErrIsNil(ctx, err, "获取任务步骤失败")
-	})
-	return
-}
-
-func (s *sTask) listStep(ctx context.Context, stageId uint) (res []*entity.TaskStep, err error) {
-	err = g.Try(ctx, func(ctx context.Context) {
-		err = dao.TaskStep.Ctx(ctx).
-			Where(dao.TaskStep.Columns().TaskId, -1).
+			Where(dao.TaskStep.Columns().TaskId, taskId).
 			Where(dao.TaskStep.Columns().StageId, stageId).
 			Scan(&res)
 		liberr.ErrIsNil(ctx, err, "获取步骤失败")
@@ -359,10 +315,15 @@ func (s *sTask) listStep(ctx context.Context, stageId uint) (res []*entity.TaskS
 	return
 }
 
-func (s *sTask) addSteps(ctx context.Context, tx gdb.TX, stageId uint, steps []*v1.TaskStep) (err error) {
+func (s *sTask) addTempletSteps(ctx context.Context, tx gdb.TX, stageId uint64, steps []*v1.TempletStep) (err error) {
+	return s.addSteps(ctx, tx, -1, stageId, steps)
+}
+
+func (s *sTask) addSteps(ctx context.Context, tx gdb.TX, taskId int64, stageId uint64, steps []*v1.TempletStep) (err error) {
 	dataList := g.List{}
 	for i, v := range steps {
 		dataList = append(dataList, g.Map{
+			dao.TaskStep.Columns().TaskId:   taskId,
 			dao.TaskStep.Columns().StageId:  stageId,
 			dao.TaskStep.Columns().Name:     v.Name,
 			dao.TaskStep.Columns().Comment:  v.Comment,
@@ -376,11 +337,15 @@ func (s *sTask) addSteps(ctx context.Context, tx gdb.TX, stageId uint, steps []*
 	return nil
 }
 
-func (s *sTask) deleteSteps(ctx context.Context, tx gdb.TX, stageId uint) (err error) {
+func (s *sTask) deleteTempletSteps(ctx context.Context, tx gdb.TX, stageId uint64) (err error) {
+	return s.deleteSteps(ctx, tx, -1, stageId)
+}
+
+func (s *sTask) deleteSteps(ctx context.Context, tx gdb.TX, taskId int64, stageId uint64) (err error) {
 	err = g.Try(ctx, func(ctx context.Context) {
 		_, e := dao.TaskStep.Ctx(ctx).TX(tx).
 			Where(dao.TaskStep.Columns().StageId, stageId).
-			Where(dao.TaskStep.Columns().TaskId, -1).
+			Where(dao.TaskStep.Columns().TaskId, taskId).
 			Delete()
 		liberr.ErrIsNil(ctx, e, "删除模板step失败")
 	})

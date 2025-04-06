@@ -14,6 +14,7 @@ import (
 	"github.com/tiger1103/gfast/v3/library/liberr"
 	"net/http"
 	"net/url"
+	"path/filepath"
 
 	"github.com/h2non/filetype"
 	"github.com/tencentyun/cos-go-sdk-v5"
@@ -35,7 +36,7 @@ type sFile struct {
 
 func (s *sFile) Upload(ctx context.Context, req *v1.UploadFileReq) (res *v1.UploadFileRes, err error) {
 	res = &v1.UploadFileRes{}
-	url, e := s.cc.UploadFile(ctx, req.Content)
+	url, e := s.cc.UploadFile(ctx, req.FileName, req.Content)
 	liberr.ErrIsNil(ctx, e, "上传资源异常")
 	res.URL = url
 	return
@@ -107,7 +108,12 @@ func detectFileExt(data []byte) (string, error) {
 	return kind.Extension, nil
 }
 
-func (cc *cosCli) UploadFile(ctx context.Context, content []byte) (string, error) {
+func hasExtension(filename string) bool {
+	ext := filepath.Ext(filename)
+	return ext != ""
+}
+
+func (cc *cosCli) UploadFile(ctx context.Context, fileName string, content []byte) (string, error) {
 	ext, err := detectFileExt(content[:261])
 	if err != nil {
 		return "", err
@@ -116,7 +122,10 @@ func (cc *cosCli) UploadFile(ctx context.Context, content []byte) (string, error
 	if ext == "pdf" {
 		prefix = "pdf/"
 	}
-	name := prefix + uuid.New().String() + "." + ext
+	name := prefix + uuid.New().String()
+	if !hasExtension(fileName) {
+		fileName = name + "." + ext
+	}
 	f := bytes.NewReader(content)
 	_, err = cc.cli.Object.Put(ctx, name, f, nil)
 	if err != nil {

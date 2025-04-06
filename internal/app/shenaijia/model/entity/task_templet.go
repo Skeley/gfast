@@ -6,7 +6,7 @@ package entity
 
 // TaskTemplet is the golang structure for table task_templet.
 type TaskTemplet struct {
-	Id   uint   `json:"id"   orm:"id"   description:""`
+	Id   uint64 `json:"id"   orm:"id"   description:""`
 	Name string `json:"name" orm:"name" description:""`
 	Type uint   `json:"type" orm:"type" description:""`
 }

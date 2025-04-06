@@ -45,25 +45,25 @@ type TaskTempletDeleteReq struct {
 
 type TaskTempletDeleteRes struct{}
 
-type TaskStep struct {
+type TempletStep struct {
 	Name    string `json:"name"`
 	Comment string `json:"comment"`
 }
 
 type TaskStage struct {
-	Name  string      `json:"name"`
-	Icon  string      `json:"icon"`
-	Steps []*TaskStep `json:"steps"`
+	Name  string         `json:"name"`
+	Icon  string         `json:"icon"`
+	Steps []*TempletStep `json:"steps"`
 }
 
-type TaskFlow struct {
+type TempletFlow struct {
 	Stages []*TaskStage `json:"stages"`
 }
 
 type TaskTempletSetFlowReq struct {
 	g.Meta    `path:"/task/templet/flow" tags:"模板管理" method:"post" summary:"设置流程"`
-	TempletId uint     `json:"templetId"`
-	Flow      TaskFlow `json:"flow"`
+	TempletId uint        `json:"templetId"`
+	Flow      TempletFlow `json:"flow"`
 }
 
 type TaskTempletSetFlowRes struct{}
@@ -76,5 +76,5 @@ type TaskTempletGetFlowReq struct {
 type TaskTempletGetFlowRes struct {
 	g.Meta `mime:"application/json"`
 
-	Flow *TaskFlow `json:"flow"`
+	Flow *TempletFlow `json:"flow"`
 }

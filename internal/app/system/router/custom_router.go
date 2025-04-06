@@ -9,12 +9,13 @@ import (
 func (router *Router) BindShenAiJiaController(ctx context.Context, group *ghttp.RouterGroup) {
 	group.Group("/shenaijia", func(group *ghttp.RouterGroup) {
 		group.Bind(
-			controller.SysProject,
-			controller.Community,
 			controller.File,
-			controller.TempletType,
-			controller.TaskTemplet,
-			controller.User,
+			// controller.Task,
+			controller.SysUser,
+			controller.SysProject,
+			controller.SysCommunity,
+			controller.SysTempletType,
+			controller.SysTaskTemplet,
 		)
 	})
 }

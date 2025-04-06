@@ -12,8 +12,9 @@ import (
 )
 
 type UploadFileReq struct {
-	g.Meta  `path:"/upload" tags:"文件管理" method:"post" summary:"上传文件"`
-	Content []byte `json:"content"`
+	g.Meta   `path:"/upload" tags:"文件管理" method:"post" summary:"上传文件"`
+	FileName string `json:"fileName"`
+	Content  []byte `json:"content"`
 }
 
 type UploadFileRes struct {

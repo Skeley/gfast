@@ -65,3 +65,12 @@ type TaskDeleteReq struct {
 }
 
 type TaskDeleteRes struct{}
+
+type TaskBindTempletReq struct {
+	g.Meta    `path:"/task/bind" tags:"项目任务管理" method:"put" summary:"绑定模板"`
+	TaskId    uint `v:"required" json:"taskId"`
+	TempletId uint `v:"required" json:"templetId"`
+}
+
+type TaskBindTempletRes struct {
+}

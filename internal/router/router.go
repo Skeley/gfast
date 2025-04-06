@@ -13,7 +13,6 @@ import (
 	commonRouter "github.com/tiger1103/gfast/v3/internal/app/common/router"
 	commonService "github.com/tiger1103/gfast/v3/internal/app/common/service"
 	systemRouter "github.com/tiger1103/gfast/v3/internal/app/system/router"
-	"github.com/tiger1103/gfast/v3/library/libRouter"
 )
 
 var R = new(Router)
@@ -30,8 +29,8 @@ func (router *Router) BindController(ctx context.Context, group *ghttp.RouterGro
 		// 绑定公共路由
 		commonRouter.R.BindController(ctx, group)
 		//自动绑定定义的模块
-		if err := libRouter.RouterAutoBind(ctx, router, group); err != nil {
-			panic(err)
-		}
+		//if err := libRouter.RouterAutoBind(ctx, router, group); err != nil {
+		//	panic(err)
+		//}
 	})
 }

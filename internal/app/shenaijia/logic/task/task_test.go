@@ -13,24 +13,24 @@ import (
 func Test_sTask_TempletSetFlow(t *testing.T) {
 	req := &v1.TaskTempletSetFlowReq{}
 	req.TempletId = 3
-	req.Flow = v1.TaskFlow{Stages: []*v1.TaskStage{
+	req.Flow = v1.TempletFlow{Stages: []*v1.TaskStage{
 		&v1.TaskStage{
 			Name: "S1",
 			Icon: "https://sss.com",
-			Steps: []*v1.TaskStep{
-				&v1.TaskStep{
+			Steps: []*v1.TempletStep{
+				&v1.TempletStep{
 					Name:    "S1T1",
 					Comment: "comment",
 				},
-				&v1.TaskStep{
+				&v1.TempletStep{
 					Name:    "S1T2",
 					Comment: "comment",
 				},
-				&v1.TaskStep{
+				&v1.TempletStep{
 					Name:    "S1T3",
 					Comment: "comment",
 				},
-				&v1.TaskStep{
+				&v1.TempletStep{
 					Name:    "S1T4",
 					Comment: "comment",
 				},
@@ -39,12 +39,12 @@ func Test_sTask_TempletSetFlow(t *testing.T) {
 		&v1.TaskStage{
 			Name: "S2",
 			Icon: "https://sss.com",
-			Steps: []*v1.TaskStep{
-				&v1.TaskStep{
+			Steps: []*v1.TempletStep{
+				&v1.TempletStep{
 					Name:    "S2T1",
 					Comment: "comment",
 				},
-				&v1.TaskStep{
+				&v1.TempletStep{
 					Name:    "S2T2",
 					Comment: "comment",
 				},
@@ -53,8 +53,8 @@ func Test_sTask_TempletSetFlow(t *testing.T) {
 		&v1.TaskStage{
 			Name: "S3",
 			Icon: "https://sss.com",
-			Steps: []*v1.TaskStep{
-				&v1.TaskStep{
+			Steps: []*v1.TempletStep{
+				&v1.TempletStep{
 					Name:    "S3T1",
 					Comment: "comment",
 				},

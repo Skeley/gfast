@@ -20,5 +20,6 @@ type TaskStep struct {
 	EstimatedCompletionDate *gtime.Time // 预计完工日期
 	CompletionDate          *gtime.Time //
 	Comment                 interface{} // 描述
+	Description             interface{} //
 	Position                interface{} // 排序位置
 }

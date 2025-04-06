@@ -33,23 +33,7 @@ func (c *taskController) Delete(ctx context.Context, req *v1.TaskDeleteReq) (res
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *taskController) ListStage(ctx context.Context, req *v1.TaskListStageReq) (res *v1.TaskListStageRes, err error) {
-	return nil, gerror.NewCode(gcode.CodeNotImplemented)
-}
-
-func (c *taskController) AddStage(ctx context.Context, req *v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
-	return nil, gerror.NewCode(gcode.CodeNotImplemented)
-}
-
-func (c *taskController) UpdateStage(ctx context.Context, req *v1.TaskAddStageReq) (res *v1.TaskAddStageRes, err error) {
-	return nil, gerror.NewCode(gcode.CodeNotImplemented)
-}
-
-func (c *taskController) DeleteStage(ctx context.Context, req *v1.TaskDeleteStageReq) (res *v1.TaskDeleteStageRes, err error) {
-	return nil, gerror.NewCode(gcode.CodeNotImplemented)
-}
-
-func (c *taskController) ListStep(ctx context.Context, req *v1.TaskListStepReq) (res *v1.TaskListStepRes, err error) {
+func (c *taskController) Bind(ctx context.Context, req *v1.TaskBindTempletReq) (res *v1.TaskBindTempletRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 

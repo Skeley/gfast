@@ -28,6 +28,7 @@ type TaskStepColumns struct {
 	EstimatedCompletionDate string // 预计完工日期
 	CompletionDate          string //
 	Comment                 string // 描述
+	Description             string //
 	Position                string // 排序位置
 }
 
@@ -41,6 +42,7 @@ var taskStepColumns = TaskStepColumns{
 	EstimatedCompletionDate: "estimated_completion_date",
 	CompletionDate:          "completion_date",
 	Comment:                 "comment",
+	Description:             "description",
 	Position:                "position",
 }
 

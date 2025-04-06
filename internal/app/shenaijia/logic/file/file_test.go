@@ -10,7 +10,7 @@ import (
 )
 
 func Test_sFile_Upload(t *testing.T) {
-	b, _ := os.ReadFile("/Users/skyler/Documents/LFS.pdf")
+	b, _ := os.ReadFile("/Users/skyler/Documents/animal-6845972_1280.jpg")
 
 	req := &v1.UploadFileReq{}
 	req.Content = b

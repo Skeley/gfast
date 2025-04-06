@@ -6,6 +6,7 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/net/goai"
+	"github.com/gogf/gf/v2/os/gcfg"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/glog"
 	"github.com/tiger1103/gfast/v3/internal/consts"
@@ -26,6 +27,14 @@ var (
 			})
 			enhanceOpenAPIDoc(s)
 			s.Run()
+
+			port, _ := gcfg.Instance().Get(ctx, "server.frontPort", 8810)
+			frontServer := g.Server("front")
+			frontServer.SetPort(port.Int())
+			frontServer.Group("/", func(group *ghttp.RouterGroup) {
+				router.R.BindShenAiJiaController(ctx, group)
+			})
+			frontServer.Run()
 			return nil
 		},
 	}
