@@ -26,7 +26,7 @@ var (
 				router.R.BindController(ctx, group)
 			})
 			enhanceOpenAPIDoc(s)
-			s.Run()
+			s.Start()
 
 			port, _ := gcfg.Instance().Get(ctx, "server.frontPort", 8810)
 			frontServer := g.Server("front")
@@ -34,7 +34,9 @@ var (
 			frontServer.Group("/", func(group *ghttp.RouterGroup) {
 				router.R.BindShenAiJiaController(ctx, group)
 			})
-			frontServer.Run()
+			frontServer.Start()
+
+			g.Wait()
 			return nil
 		},
 	}
