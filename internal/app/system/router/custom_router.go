@@ -11,7 +11,6 @@ func (router *Router) BindShenAiJiaController(ctx context.Context, group *ghttp.
 		group.Bind(
 			controller.SysProject,
 			controller.Community,
-			controller.Task,
 			controller.File,
 			controller.TempletType,
 			controller.TaskTemplet,
