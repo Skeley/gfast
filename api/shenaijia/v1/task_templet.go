@@ -7,7 +7,7 @@ import (
 )
 
 type TaskTempletSearchReq struct {
-	g.Meta `path:"/task/templet" tags:"任务模板管理" method:"get" summary:"搜索模板"`
+	g.Meta `path:"/task/templet" tags:"模板管理" method:"get" summary:"搜索模板"`
 	Name   string `json:"name"`
 	Type   string `json:"type"` // type id
 
@@ -22,7 +22,7 @@ type TaskTempletSearchRes struct {
 }
 
 type TaskTempletAddReq struct {
-	g.Meta `path:"/task/templet" tags:"任务模板管理" method:"post" summary:"添加模板"`
+	g.Meta `path:"/task/templet" tags:"模板管理" method:"post" summary:"添加模板"`
 	Type   uint   `json:"type"` // type id
 	Name   string `json:"name"`
 }
@@ -30,7 +30,7 @@ type TaskTempletAddReq struct {
 type TaskTempletAddRes struct{}
 
 type TaskTempletUpdateReq struct {
-	g.Meta `path:"/task/templet" tags:"任务模板管理" method:"put" summary:"更新模板"`
+	g.Meta `path:"/task/templet" tags:"模板管理" method:"put" summary:"更新模板"`
 	Id     uint   `json:"id"`
 	Type   uint   `json:"type"` // type id
 	Name   string `json:"name"`
