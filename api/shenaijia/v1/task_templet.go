@@ -39,7 +39,7 @@ type TaskTempletUpdateReq struct {
 type TaskTempletUpdateRes struct{}
 
 type TaskTempletDeleteReq struct {
-	g.Meta `path:"/task/templet" tags:"任务模板管理" method:"delete" summary:"删除模板"`
+	g.Meta `path:"/task/templet" tags:"模板管理" method:"delete" summary:"删除模板"`
 	Id     uint `json:"id"`
 }
 
@@ -61,7 +61,7 @@ type TaskFlow struct {
 }
 
 type TaskTempletSetFlowReq struct {
-	g.Meta    `path:"/task/templet/flow" tags:"任务模板管理" method:"post" summary:"设置流程"`
+	g.Meta    `path:"/task/templet/flow" tags:"模板管理" method:"post" summary:"设置流程"`
 	TempletId uint     `json:"templetId"`
 	Flow      TaskFlow `json:"flow"`
 }
@@ -69,7 +69,7 @@ type TaskTempletSetFlowReq struct {
 type TaskTempletSetFlowRes struct{}
 
 type TaskTempletGetFlowReq struct {
-	g.Meta    `path:"/task/templet/flow" tags:"任务模板管理" method:"get" summary:"获取流程"`
+	g.Meta    `path:"/task/templet/flow" tags:"模板管理" method:"get" summary:"获取流程"`
 	TempletId uint `json:"templetId"`
 }
 
