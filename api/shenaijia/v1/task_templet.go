@@ -23,15 +23,15 @@ type TaskTempletSearchRes struct {
 
 type TaskTempletAddReq struct {
 	g.Meta `path:"/task/templet" tags:"模板管理" method:"post" summary:"添加模板"`
-	Type   uint   `json:"type"` // type id
-	Name   string `json:"name"`
+	Type   uint   `v:"required" json:"type"` // type id
+	Name   string `v:"required" json:"name"`
 }
 
 type TaskTempletAddRes struct{}
 
 type TaskTempletUpdateReq struct {
 	g.Meta `path:"/task/templet" tags:"模板管理" method:"put" summary:"更新模板"`
-	Id     uint   `json:"id"`
+	Id     uint   `v:"required" json:"id"`
 	Type   uint   `json:"type"` // type id
 	Name   string `json:"name"`
 }
@@ -40,7 +40,7 @@ type TaskTempletUpdateRes struct{}
 
 type TaskTempletDeleteReq struct {
 	g.Meta `path:"/task/templet" tags:"模板管理" method:"delete" summary:"删除模板"`
-	Id     uint `json:"id"`
+	Id     uint `v:"required" json:"id"`
 }
 
 type TaskTempletDeleteRes struct{}

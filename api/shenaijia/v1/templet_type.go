@@ -23,14 +23,14 @@ type TempletTypeSearchRes struct {
 
 type TempletTypeAddReq struct {
 	g.Meta   `path:"/task/templet/type" tags:"模板类型管理" method:"post" summary:"添加模板类型"`
-	Name     string `json:"name"`
-	Standard bool   `json:"standard" description:"是否为标准类型"`
+	Name     string `v:"required" json:"name"`
+	Standard bool   `v:"required" json:"standard" description:"是否为标准类型"`
 }
 type TempletTypeAddRes struct{}
 
 type TempletTypeUpdateReq struct {
 	g.Meta   `path:"/task/templet/type" tags:"模板类型管理" method:"put" summary:"更新"`
-	Id       uint   `json:"id"`
+	Id       uint   `v:"required" json:"id"`
 	Name     string `json:"name"`
 	Standard bool   `json:"standard" description:"是否为标准类型"`
 }
@@ -39,6 +39,6 @@ type TempletTypeUpdateRes struct{}
 
 type TempletTypeDeleteReq struct {
 	g.Meta `path:"/task/templet/type" tags:"模板类型管理" method:"delete" summary:"删除"`
-	Id     uint `json:"id"`
+	Id     uint `v:"required" json:"id"`
 }
 type TempletTypeDeleteRes struct{}
