@@ -2,9 +2,11 @@ package project
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/gogf/gf/v2/os/gtime"
 	"github.com/gogf/gf/v2/util/gconv"
+	"slices"
 
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
@@ -13,6 +15,7 @@ import (
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model/entity"
 	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
 	systemConsts "github.com/tiger1103/gfast/v3/internal/app/system/consts"
+	sysModel "github.com/tiger1103/gfast/v3/internal/app/system/model"
 	"github.com/tiger1103/gfast/v3/library/liberr"
 )
 
@@ -25,6 +28,44 @@ func New() *sProject {
 }
 
 type sProject struct{}
+
+func (s *sProject) List(ctx context.Context, user *sysModel.LoginUserRes, req *api.ProjectListReq) (res *api.ProjectListRes, err error) {
+	res = &api.ProjectListRes{}
+	err = g.Try(ctx, func(ctx context.Context) {
+		m := dao.Project.Ctx(ctx).InnerJoin(dao.Community.Table(), "c",
+			fmt.Sprintf("%s.%s=c.%s",
+				dao.Project.Table(),
+				dao.Project.Columns().CommunityId,
+				dao.Community.Columns().Id))
+		if slices.Index(user.UserTypes, req.UserType) == -1 {
+			g.Throw(errors.New("非法请求, 用户身份无效"))
+		}
+		m = m.Where(dao.Project.Columns().Valid, true)
+		switch req.UserType {
+		case 1:
+			m = m.Where(dao.Project.Columns().Manager, user.Id)
+		case 2:
+			m = m.Where(dao.Project.Columns().Creator, user.Id)
+		case 3:
+			m = m.Where(dao.Project.Columns().Associate, user.Id)
+		}
+		res.Total, err = m.Count()
+		liberr.ErrIsNil(ctx, err, "获取项目列表失败")
+
+		if req.PageNum == 0 {
+			req.PageNum = 1
+		}
+		res.CurrentPage = req.PageNum
+		if req.PageSize == 0 {
+			req.PageSize = systemConsts.PageSize
+		}
+		err = m.Fields("project.*").Fields(dao.Community.Columns().CommunityName).
+			Page(req.PageNum, req.PageSize).Order(dao.Project.Columns().StartDate + " desc").
+			Scan(&res.List)
+		liberr.ErrIsNil(ctx, err, "获取项目列表失败")
+	})
+	return
+}
 
 func (s *sProject) SysList(ctx context.Context, req *api.SysProjectSearchReq) (res *api.SysProjectSearchRes, err error) {
 	res = &api.SysProjectSearchRes{}

@@ -3,7 +3,7 @@ package v1
 import (
 	"github.com/gogf/gf/v2/frame/g"
 	commonApi "github.com/tiger1103/gfast/v3/api/v1/common"
-	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model/entity"
+	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/model"
 )
 
 type TempletTypeSearchReq struct {
@@ -16,7 +16,7 @@ type TempletTypeSearchReq struct {
 
 type TempletTypeSearchRes struct {
 	g.Meta `mime:"application/json"`
-	List   []*entity.TaskType `json:"list"`
+	List   []*model.TaskType `json:"list"`
 
 	commonApi.ListRes
 }

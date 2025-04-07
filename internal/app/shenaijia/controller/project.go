@@ -25,10 +25,6 @@ func (c *projectController) ProjectDelete(ctx context.Context, req *v1.ProjectDe
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *projectController) ProjectGet(ctx context.Context, req *v1.ProjectGetReq) (res *v1.ProjectGetRes, err error) {
-	return nil, gerror.NewCode(gcode.CodeNotImplemented)
-}
-
 func (c *projectController) ProjectList(ctx context.Context, req *v1.ProjectListReq) (res *v1.ProjectListRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
