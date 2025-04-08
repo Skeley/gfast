@@ -5,7 +5,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/gogf/gf/v2/os/glog"
 	"io"
 	"net/http"
 	"net/url"
@@ -133,7 +132,7 @@ func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Rea
 	if err != nil {
 		return "", err
 	}
-	glog.Debugf(ctx, "filename: %s, ext: %s", fileName, ext)
+	g.Log().Infof(ctx, "filename: %s, ext: %s", fileName, ext)
 	prefix := "images/"
 	if ext == "pdf" {
 		prefix = "pdf/"
