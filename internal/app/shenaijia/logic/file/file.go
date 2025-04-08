@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/gogf/gf/v2/os/glog"
 	"io"
 	"net/http"
 	"net/url"
@@ -14,7 +15,6 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcfg"
 	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/google/uuid"
 	"github.com/h2non/filetype"
 	"github.com/tencentyun/cos-go-sdk-v5"
 
@@ -133,13 +133,14 @@ func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Rea
 	if err != nil {
 		return "", err
 	}
+	glog.Debugf(ctx, "filename: %s, ext: %s", fileName, ext)
 	prefix := "images/"
 	if ext == "pdf" {
 		prefix = "pdf/"
 	}
-	name := prefix + uuid.New().String()
+	name := prefix + fileName
 	if !hasExtension(fileName) {
-		fileName = name + "." + ext
+		name = name + "." + ext
 	}
 	_, err = cc.cli.Object.Put(ctx, name, io.MultiReader(bytes.NewReader(header), reader), nil)
 	if err != nil {
