@@ -5,19 +5,22 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/gogf/gf/v2/frame/g"
-	"github.com/gogf/gf/v2/os/gcfg"
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/google/uuid"
-	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
-	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
-	"github.com/tiger1103/gfast/v3/library/liberr"
+	"io"
 	"net/http"
 	"net/url"
 	"path/filepath"
 
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gcfg"
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/google/uuid"
 	"github.com/h2non/filetype"
 	"github.com/tencentyun/cos-go-sdk-v5"
+
+	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
+	"github.com/tiger1103/gfast/v3/internal/app/shenaijia/service"
+	"github.com/tiger1103/gfast/v3/library/liberr"
 )
 
 func init() {
@@ -36,7 +39,14 @@ type sFile struct {
 
 func (s *sFile) Upload(ctx context.Context, req *v1.UploadFileReq) (res *v1.UploadFileRes, err error) {
 	res = &v1.UploadFileRes{}
-	url, e := s.cc.UploadFile(ctx, req.FileName, req.Content)
+	f, e := req.File.Open()
+	if e != nil {
+		err = gerror.Wrapf(err, `UploadFile.Open failed`)
+		return res, err
+	}
+	defer f.Close()
+
+	url, e := s.cc.UploadFile(ctx, req.File.Filename, f)
 	liberr.ErrIsNil(ctx, e, "上传资源异常")
 	res.URL = url
 	return
@@ -113,8 +123,13 @@ func hasExtension(filename string) bool {
 	return ext != ""
 }
 
-func (cc *cosCli) UploadFile(ctx context.Context, fileName string, content []byte) (string, error) {
-	ext, err := detectFileExt(content[:261])
+func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Reader) (string, error) {
+	header := make([]byte, 261)
+	_, err := io.ReadFull(reader, header)
+	if err != nil {
+		return "", gerror.New("无效文件，文件大小必须大于261字节")
+	}
+	ext, err := detectFileExt(header)
 	if err != nil {
 		return "", err
 	}
@@ -126,8 +141,7 @@ func (cc *cosCli) UploadFile(ctx context.Context, fileName string, content []byt
 	if !hasExtension(fileName) {
 		fileName = name + "." + ext
 	}
-	f := bytes.NewReader(content)
-	_, err = cc.cli.Object.Put(ctx, name, f, nil)
+	_, err = cc.cli.Object.Put(ctx, name, io.MultiReader(bytes.NewReader(header), reader), nil)
 	if err != nil {
 		return "", err
 	}

@@ -9,12 +9,12 @@ package v1
 
 import (
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
 )
 
 type UploadFileReq struct {
-	g.Meta   `path:"/upload" tags:"文件管理" method:"post" summary:"上传文件"`
-	FileName string `json:"fileName"`
-	Content  []byte `json:"content"`
+	g.Meta `path:"/upload" mime:"multipart/form-data" method:"post" tags:"文件管理" summary:"上传文件"`
+	File   *ghttp.UploadFile `json:"file" type:"file" dc:"选择上传文件`
 }
 
 type UploadFileRes struct {
