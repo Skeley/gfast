@@ -151,7 +151,8 @@ func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Rea
 	fileName = buildFileName(fileName, kind)
 	opt := &cos.ObjectPutOptions{
 		ObjectPutHeaderOptions: &cos.ObjectPutHeaderOptions{
-			ContentType: kind.MIME.Value,
+			ContentType:        kind.MIME.Value,
+			ContentDisposition: "inline",
 		},
 	}
 	_, err = cc.cli.Object.Put(ctx,
