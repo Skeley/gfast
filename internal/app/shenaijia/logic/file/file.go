@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/h2non/filetype/types"
 	"io"
 	"net/http"
 	"net/url"
@@ -106,20 +107,29 @@ func newCosCli() *cosCli {
 	return cc
 }
 
-func detectFileExt(data []byte) (string, error) {
-	kind, err := filetype.Match(data)
-	if err != nil {
-		return "", errors.New("不支持的文件类型")
-	}
+func checkFileType(kind types.Type) error {
 	if kind.MIME.Type != "image" && kind.MIME.Value != "application/pdf" {
-		return "", errors.New("不支持的文件类型")
+		return errors.New("不支持的文件类型")
 	}
-	return kind.Extension, nil
+	return nil
 }
 
 func hasExtension(filename string) bool {
 	ext := filepath.Ext(filename)
 	return ext != ""
+}
+
+func buildFileName(orgName string, kind types.Type) string {
+	ext := kind.Extension
+	prefix := "images/"
+	if ext == "pdf" {
+		prefix = "pdf/"
+	}
+	name := prefix + orgName
+	if !hasExtension(orgName) {
+		name = name + "." + ext
+	}
+	return name
 }
 
 func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Reader) (string, error) {
@@ -128,22 +138,28 @@ func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Rea
 	if err != nil {
 		return "", gerror.New("无效文件，文件大小必须大于261字节")
 	}
-	ext, err := detectFileExt(header)
+
+	kind, err := filetype.Match(header)
+	if err != nil {
+		return "", gerror.New("不支持的文件类型")
+	}
+	err = checkFileType(kind)
 	if err != nil {
 		return "", err
 	}
-	g.Log().Infof(ctx, "filename: %s, ext: %s", fileName, ext)
-	prefix := "images/"
-	if ext == "pdf" {
-		prefix = "pdf/"
+
+	fileName = buildFileName(fileName, kind)
+	opt := &cos.ObjectPutOptions{
+		ObjectPutHeaderOptions: &cos.ObjectPutHeaderOptions{
+			ContentType: kind.MIME.Value,
+		},
 	}
-	name := prefix + fileName
-	if !hasExtension(fileName) {
-		name = name + "." + ext
-	}
-	_, err = cc.cli.Object.Put(ctx, name, io.MultiReader(bytes.NewReader(header), reader), nil)
+	_, err = cc.cli.Object.Put(ctx,
+		fileName,
+		io.MultiReader(bytes.NewReader(header), reader),
+		opt)
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(cc.cosURL+"/%s", name), nil
+	return fmt.Sprintf(cc.cosURL+"/%s", fileName), nil
 }
