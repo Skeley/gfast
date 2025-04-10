@@ -5,7 +5,10 @@ import "github.com/gogf/gf/v2/os/gtime"
 type ProjectRes struct {
 	Id                      uint        `json:"id" orm:"id" description:"项目id"`
 	ProjectName             string      `json:"projectName" orm:"project_name"  description:"项目名"`
+	CommunityId             uint        `json:"communityId" orm:"community_id"`
+	CommunityPid            uint        `json:"communityPid" orm:"community_pid"`
 	CommunityName           string      `json:"communityName" orm:"community_name" description:"小区名"`
+	CommunityParentName     string      `json:"communityParentName"`
 	StartDate               *gtime.Time `json:"startDate" orm:"start_date" description:"开工日期"`
 	EstimatedCompletionDate *gtime.Time `json:"estimatedCompletionDate" orm:"estimated_completion_date" description:"预计完工日期"`
 	CompletionDate          *gtime.Time `json:"completionDate" orm:"completion_date" description:"完工日期"`

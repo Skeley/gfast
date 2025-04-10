@@ -70,11 +70,7 @@ func (s *sProject) List(ctx context.Context, user *sysModel.LoginUserRes, req *a
 func (s *sProject) SysList(ctx context.Context, req *api.SysProjectSearchReq) (res *api.SysProjectSearchRes, err error) {
 	res = &api.SysProjectSearchRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
-		m := dao.Project.Ctx(ctx).InnerJoin(dao.Community.Table(), "c",
-			fmt.Sprintf("%s.%s=c.%s",
-				dao.Project.Table(),
-				dao.Project.Columns().CommunityId,
-				dao.Community.Columns().Id))
+		m := dao.Project.Ctx(ctx).InnerJoin(dao.Community.Table(), "c", "project.community_id = c.id")
 		m = m.Where(dao.Project.Columns().Valid, true)
 		if len(req.CommunityId) > 0 {
 			m = m.Where(dao.Project.Columns().CommunityId, gconv.Uint(req.CommunityId))
@@ -104,7 +100,11 @@ func (s *sProject) SysList(ctx context.Context, req *api.SysProjectSearchReq) (r
 		if req.PageSize == 0 {
 			req.PageSize = systemConsts.PageSize
 		}
-		err = m.Fields("project.*").Fields(dao.Community.Columns().CommunityName).
+		err = m.Fields("project.*").
+			Fields(
+				"c.id as community_id",
+				"c.pid as community_pid",
+				"c.community_name").
 			Page(req.PageNum, req.PageSize).Order(dao.Project.Columns().StartDate + " desc").
 			Scan(&res.List)
 		liberr.ErrIsNil(ctx, err, "获取项目列表失败")

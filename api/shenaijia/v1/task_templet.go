@@ -70,7 +70,7 @@ type TaskTempletSetFlowRes struct{}
 
 type TaskTempletGetFlowReq struct {
 	g.Meta    `path:"/task/templet/flow" tags:"模板管理" method:"get" summary:"获取流程"`
-	TempletId uint `json:"templetId"`
+	TempletId uint `json:"id"`
 }
 
 type TaskTempletGetFlowRes struct {
