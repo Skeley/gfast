@@ -53,8 +53,9 @@ func (s *sFile) Upload(ctx context.Context, req *v1.UploadFileReq) (res *v1.Uplo
 }
 
 type cosCli struct {
-	cli    *cos.Client
-	cosURL string
+	cli           *cos.Client
+	defaultCosURL string
+	staticCosURL  string
 }
 
 type cosConf struct {
@@ -62,6 +63,7 @@ type cosConf struct {
 	Region    string `json:"region"`
 	SecretID  string `json:"secret_id"`
 	SecretKey string `json:"secret_key"`
+	StaticUrl string `json:"static_url"`
 }
 
 func newCosConf() *cosConf {
@@ -71,6 +73,7 @@ func newCosConf() *cosConf {
 	region, _ := gcfg.Instance().Get(ctx, "cos.region")
 	secretId, _ := gcfg.Instance().Get(ctx, "cos.secret_id")
 	secretKey, _ := gcfg.Instance().Get(ctx, "cos.secret_key")
+	staticUrl, _ := gcfg.Instance().Get(ctx, "cos.static_url")
 
 	if bucket == nil || region == nil || secretId == nil || secretKey == nil {
 		return nil
@@ -81,6 +84,7 @@ func newCosConf() *cosConf {
 		Region:    region.String(),
 		SecretID:  secretId.String(),
 		SecretKey: secretKey.String(),
+		StaticUrl: staticUrl.String(),
 	}
 	g.Log().Infof(ctx, "cos.bucket: %s, cos.region: %s, cos.secret_id: %s, cos.secret_key: %s",
 		conf.Bucket, conf.Region, conf.SecretID, conf.SecretKey)
@@ -103,7 +107,8 @@ func newCosCli() *cosCli {
 			SecretKey: conf.SecretKey,
 		},
 	})
-	cc.cosURL = urlStr
+	cc.defaultCosURL = urlStr
+	cc.staticCosURL = conf.StaticUrl
 	return cc
 }
 
@@ -162,5 +167,11 @@ func (cc *cosCli) UploadFile(ctx context.Context, fileName string, reader io.Rea
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(cc.cosURL+"/%s", fileName), nil
+	var url string
+	if len(cc.staticCosURL) > 0 {
+		url = fmt.Sprintf(cc.staticCosURL+"/%s", fileName)
+	} else {
+		url = fmt.Sprintf(cc.defaultCosURL+"/%s", fileName)
+	}
+	return url, nil
 }
