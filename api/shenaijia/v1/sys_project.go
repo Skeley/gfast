@@ -72,7 +72,7 @@ type SysProjectDelRes struct{}
 
 type SysProjectAuditReq struct {
 	g.Meta    `path:"/project/audit" tags:"工程项目管理" method:"post" summary:"项目审核"`
-	ProjectId uint   `v:"required" json:"projectId"`
+	Id        uint   `v:"required" json:"id"`
 	Associate string `json:"associate"`
 }
 

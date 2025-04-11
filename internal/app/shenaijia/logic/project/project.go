@@ -183,7 +183,7 @@ func (s *sProject) Audit(ctx context.Context, req *api.SysProjectAuditReq) (res 
 	res = &api.SysProjectAuditRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
 		var audited bool
-		err = dao.Project.Ctx(ctx).WherePri(req.ProjectId).Fields(dao.Project.Columns().Audited).Scan(&audited)
+		err = dao.Project.Ctx(ctx).WherePri(req.Id).Fields(dao.Project.Columns().Audited).Scan(&audited)
 		liberr.ErrIsNil(ctx, err, "获取项目信息失败")
 
 		if audited {
@@ -196,7 +196,7 @@ func (s *sProject) Audit(ctx context.Context, req *api.SysProjectAuditReq) (res 
 		if len(req.Associate) > 0 {
 			data[dao.Project.Columns().Associate] = gconv.Uint(req.Associate)
 		}
-		_, e := dao.Project.Ctx(ctx).WherePri(req.ProjectId).Update(data)
+		_, e := dao.Project.Ctx(ctx).WherePri(req.Id).Update(data)
 		liberr.ErrIsNil(ctx, e, "审核失败")
 	})
 	return
