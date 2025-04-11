@@ -22,3 +22,16 @@ func Test_sSysProject_List(t *testing.T) {
 		fmt.Println(string(s))
 	}
 }
+
+func Test_sSysProject_Audit(t *testing.T) {
+	ctx := context.Background()
+	req := api.SysProjectAuditReq{}
+	req.Id = 2
+	req.Associate = "1"
+
+	s := &sProject{}
+	_, err := s.Audit(ctx, &req)
+	if err != nil {
+		t.Error(err)
+	}
+}

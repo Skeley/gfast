@@ -7,13 +7,16 @@ toolchain go1.23.0
 require (
 	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
 	github.com/casbin/casbin/v2 v2.42.0
+	github.com/go-sql-driver/mysql v1.8.1
 	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.8.0
 	github.com/gogf/gf/contrib/nosql/redis/v2 v2.8.0
 	github.com/gogf/gf/v2 v2.8.0
+	github.com/h2non/filetype v1.1.3
 	github.com/mojocn/base64Captcha v1.3.6
 	github.com/mssola/user_agent v0.5.3
 	github.com/shirou/gopsutil/v3 v3.23.2
 	github.com/stretchr/testify v1.9.0
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.64
 	github.com/tiger1103/gfast-cache v1.0.8
 	github.com/tiger1103/gfast-token v1.0.8
 )
@@ -36,7 +39,6 @@ require (
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
@@ -50,7 +52,6 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/grokify/html-strip-tags-go v0.1.0 // indirect
-	github.com/h2non/filetype v1.1.3 // indirect
 	github.com/klauspost/compress v1.12.3 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
@@ -67,7 +68,6 @@ require (
 	github.com/redis/go-redis/v9 v9.6.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.64 // indirect
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
