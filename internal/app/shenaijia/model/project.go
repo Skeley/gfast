@@ -19,4 +19,5 @@ type ProjectRes struct {
 	Creator                 uint        `json:"creator" orm:"creator" description:"创建人"`
 	Manager                 uint        `json:"manager" orm:"manager" description:"物业经理"`
 	Associate               uint        `json:"associate" orm:"associate" description:"合伙人"`
+	Audited                 bool        `json:"audited" orm:"audited" description:""`
 }
