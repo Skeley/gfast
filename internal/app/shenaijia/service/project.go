@@ -9,14 +9,17 @@ import (
 	"context"
 
 	api "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
+	sysModel "github.com/tiger1103/gfast/v3/internal/app/system/model"
 )
 
 type (
 	IProject interface {
+		List(ctx context.Context, user *sysModel.LoginUserRes, req *api.ProjectListReq) (res *api.ProjectListRes, err error)
 		SysList(ctx context.Context, req *api.SysProjectSearchReq) (res *api.SysProjectSearchRes, err error)
 		SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *api.SysProjectAddRes, err error)
 		SysEdit(ctx context.Context, req *api.SysProjectEditReq) (res *api.SysProjectEditRes, err error)
 		Delete(ctx context.Context, req *api.ProjectDeleteReq) (res *api.ProjectDeleteRes, err error)
+		Audit(ctx context.Context, req *api.SysProjectAuditReq) (res *api.SysProjectAuditRes, err error)
 	}
 )
 

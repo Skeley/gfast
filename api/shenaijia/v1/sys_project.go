@@ -70,13 +70,13 @@ type SysProjectDelReq struct {
 }
 type SysProjectDelRes struct{}
 
-type SysProjectReviewReq struct {
-	g.Meta    `path:"/project/review" tags:"工程项目管理" method:"put" summary:"项目审核"`
-	ProjectId uint `v:"required" json:"projectId"`
-	Associate uint `json:"associate"`
+type SysProjectAuditReq struct {
+	g.Meta    `path:"/project/audit" tags:"工程项目管理" method:"post" summary:"项目审核"`
+	ProjectId uint   `v:"required" json:"projectId"`
+	Associate string `json:"associate"`
 }
 
-type SysProjectReviewRes struct {
+type SysProjectAuditRes struct {
 	g.Meta `mime:"application/json"`
 	Pass   bool `json:"pass"`
 }

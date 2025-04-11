@@ -14,6 +14,7 @@ type Project struct {
 	g.Meta                  `orm:"table:project, do:true"`
 	Id                      interface{} // 项目id
 	Valid                   interface{} // 是否有效
+	Audited                 interface{} //
 	ProjectName             interface{} // 项目名
 	CommunityId             interface{} // 小区id
 	StartDate               *gtime.Time // 开工日期

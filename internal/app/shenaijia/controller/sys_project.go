@@ -18,15 +18,15 @@ type sysProjectController struct {
 	commonController.BaseController
 }
 
-func (c *sysProjectController) ProjectAdd(ctx context.Context, req *v1.SysProjectAddReq) (res *v1.SysProjectAddRes, err error) {
+func (c *sysProjectController) Add(ctx context.Context, req *v1.SysProjectAddReq) (res *v1.SysProjectAddRes, err error) {
 	return service.Project().SysAdd(ctx, req)
 }
 
-func (c *sysProjectController) ProjectDelete(ctx context.Context, req *v1.SysProjectDelReq) (res *v1.SysProjectDelRes, err error) {
+func (c *sysProjectController) Delete(ctx context.Context, req *v1.SysProjectDelReq) (res *v1.SysProjectDelRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (c *sysProjectController) ProjectList(ctx context.Context, req *v1.SysProjectSearchReq) (res *v1.SysProjectSearchRes, err error) {
+func (c *sysProjectController) List(ctx context.Context, req *v1.SysProjectSearchReq) (res *v1.SysProjectSearchRes, err error) {
 	res, err = service.Project().SysList(ctx, req)
 	if err != nil {
 		return res, err
@@ -48,6 +48,11 @@ func (c *sysProjectController) ProjectList(ctx context.Context, req *v1.SysProje
 	return res, nil
 }
 
-func (c *sysProjectController) ProjectUpdate(ctx context.Context, req *v1.SysProjectEditReq) (res *v1.SysProjectEditRes, err error) {
+func (c *sysProjectController) Update(ctx context.Context, req *v1.SysProjectEditReq) (res *v1.SysProjectEditRes, err error) {
 	return service.Project().SysEdit(ctx, req)
+}
+
+func (c *sysProjectController) Audit(ctx context.Context, req *v1.SysProjectAuditReq) (res *v1.SysProjectAuditRes, err error) {
+	return service.Project().Audit(ctx, req)
+
 }

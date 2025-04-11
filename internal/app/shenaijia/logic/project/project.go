@@ -178,3 +178,26 @@ func (s *sProject) Delete(ctx context.Context, req *api.ProjectDeleteReq) (res *
 	})
 	return
 }
+
+func (s *sProject) Audit(ctx context.Context, req *api.SysProjectAuditReq) (res *api.SysProjectAuditRes, err error) {
+	res = &api.SysProjectAuditRes{}
+	err = g.Try(ctx, func(ctx context.Context) {
+		var audited bool
+		err = dao.Project.Ctx(ctx).WherePri(req.ProjectId).Fields(dao.Project.Columns().Audited).Scan(&audited)
+		liberr.ErrIsNil(ctx, err, "获取项目信息失败")
+
+		if audited {
+			g.Throw(errors.New("项目已审核，无需重复审核"))
+		}
+
+		data := g.Map{
+			dao.Project.Columns().Audited: true,
+		}
+		if len(req.Associate) > 0 {
+			data[dao.Project.Columns().Associate] = gconv.Uint(req.Associate)
+		}
+		_, e := dao.Project.Ctx(ctx).WherePri(req.ProjectId).Update(data)
+		liberr.ErrIsNil(ctx, e, "审核失败")
+	})
+	return
+}
