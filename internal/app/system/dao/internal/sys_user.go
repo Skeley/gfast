@@ -24,6 +24,8 @@ type SysUserColumns struct {
 	UserName      string // 用户名
 	Mobile        string // 中国手机不带国家代码，国际手机号格式为：国家代码-手机号
 	UserNickname  string // 用户昵称
+	Openid        string //
+	Unionid       string //
 	Birthday      string // 生日
 	UserPassword  string // 登录密码;cmf_password加密
 	UserSalt      string // 加密盐
@@ -50,6 +52,8 @@ var sysUserColumns = SysUserColumns{
 	UserName:      "user_name",
 	Mobile:        "mobile",
 	UserNickname:  "user_nickname",
+	Openid:        "openid",
+	Unionid:       "unionid",
 	Birthday:      "birthday",
 	UserPassword:  "user_password",
 	UserSalt:      "user_salt",

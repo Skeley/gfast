@@ -14,6 +14,8 @@ type SysUser struct {
 	UserName      string      `json:"userName"      orm:"user_name"       description:"用户名"`
 	Mobile        string      `json:"mobile"        orm:"mobile"          description:"中国手机不带国家代码，国际手机号格式为：国家代码-手机号"`
 	UserNickname  string      `json:"userNickname"  orm:"user_nickname"   description:"用户昵称"`
+	Openid        string      `json:"openid"        orm:"openid"          description:""`
+	Unionid       string      `json:"unionid"       orm:"unionid"         description:""`
 	Birthday      int         `json:"birthday"      orm:"birthday"        description:"生日"`
 	UserPassword  string      `json:"userPassword"  orm:"user_password"   description:"登录密码;cmf_password加密"`
 	UserSalt      string      `json:"userSalt"      orm:"user_salt"       description:"加密盐"`

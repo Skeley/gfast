@@ -16,6 +16,8 @@ type SysUser struct {
 	UserName      interface{} // 用户名
 	Mobile        interface{} // 中国手机不带国家代码，国际手机号格式为：国家代码-手机号
 	UserNickname  interface{} // 用户昵称
+	Openid        interface{} //
+	Unionid       interface{} //
 	Birthday      interface{} // 生日
 	UserPassword  interface{} // 登录密码;cmf_password加密
 	UserSalt      interface{} // 加密盐

@@ -108,6 +108,16 @@ func (s *sSysUser) GetUserByMobile(ctx context.Context, mobile string) (user *mo
 	return
 }
 
+func (s *sSysUser) GetUserByUnionId(ctx context.Context, unionId string) (user *model.LoginUserRes, err error) {
+	user = &model.LoginUserRes{}
+	err = g.Try(ctx, func(ctx context.Context) {
+		dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Unionid, unionId).Scan(user)
+		user.UserTypes = rawTypesToVec(user.RawTypes)
+		liberr.ErrIsNil(ctx, err, "账号不存在")
+	})
+	return
+}
+
 // LoginLog 记录登录日志
 func (s *sSysUser) LoginLog(ctx context.Context, params *model.LoginLogParams) {
 	ua := user_agent.New(params.UserAgent)
@@ -138,6 +148,25 @@ func (s *sSysUser) UpdateLoginInfo(ctx context.Context, id uint64, ip string) (e
 		liberr.ErrIsNil(ctx, err, "更新用户登录信息失败")
 	})
 	return
+}
+
+func (s *sSysUser) BindUnionId(ctx context.Context, id uint64, unionId string) (err error) {
+	g.Try(ctx, func(ctx context.Context) {
+		_, err = dao.SysUser.Ctx(ctx).WherePri(id).Update(g.Map{
+			dao.SysUser.Columns().Unionid: unionId,
+		})
+		liberr.ErrIsNil(ctx, err, "设置用户UnionId失败")
+	})
+	return
+}
+
+func (s *sSysUser) IsNewUser(ctx context.Context, unionId string) (newUser bool, err error) {
+	var exist bool
+	err = g.Try(ctx, func(ctx context.Context) {
+		exist, err = dao.SysUser.Ctx(ctx).Where(dao.SysUser.Columns().Unionid, unionId).Exist()
+		liberr.ErrIsNil(ctx, err, "数据库异常")
+	})
+	return !exist, err
 }
 
 // GetAdminRules 获取用户菜单数据

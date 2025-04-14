@@ -13,17 +13,26 @@ import (
 )
 
 type LoginReq struct {
-	g.Meta    `path:"/login" tags:"登陆" method:"get" summary:"登陆"`
-	OpenId    string `v:"required" json:"openId"`
+	g.Meta    `path:"/login" tags:"登陆" method:"post" summary:"登陆"`
 	LoginCode string `v:"required" json:"loginCode"`
-	IV        string `v:"required" json:"iv"`
-	Tel       string `json:"tel"` // 从wechat拉取手机号码 登录
+	PhoneCode string `v:"required" json:"phoneCode"`
+	IV        string `json:"iv"`
 }
 
 type LoginRes struct {
 	g.Meta `mime:"application/json"`
 	User   *model.LoginUserRes `json:"user"`
 	Token  string              `json:"token"`
+}
+
+type CheckIsNewUserReq struct {
+	g.Meta    `path:"/user/is_new_user" tags:"用户管理" method:"get" summary:"检查是否是新用户"`
+	LoginCode string `v:"required" json:"loginCode"`
+}
+
+type CheckIsNewUserRes struct {
+	g.Meta  `mime:"application/json"`
+	NewUser bool `json:"newUser"`
 }
 
 type UserBoundCommunityReq struct {

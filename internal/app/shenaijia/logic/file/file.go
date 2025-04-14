@@ -67,7 +67,7 @@ type cosConf struct {
 }
 
 func newCosConf() *cosConf {
-	var ctx = gctx.New()
+	var ctx = gctx.GetInitCtx()
 
 	bucket, _ := gcfg.Instance().Get(ctx, "cos.bucket")
 	region, _ := gcfg.Instance().Get(ctx, "cos.region")
