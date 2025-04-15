@@ -67,7 +67,7 @@ func (s *sWeChat) Jscode2Session(ctx context.Context, loginCode string) (result 
 }
 
 func (s *sWeChat) GetPhoneNumber(ctx context.Context, code string) (string, error) {
-	baseUrl := "https://api.weixin.qq.com/cgi-bin/stable_token"
+	baseUrl := "https://api.weixin.qq.com/wxa/business/getuserphonenumber"
 	params := url.Values{}
 	params.Add("access_token", s.token.AccessToken)
 	fullURL := baseUrl + "?" + params.Encode()
