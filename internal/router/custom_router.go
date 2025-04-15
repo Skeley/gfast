@@ -17,6 +17,7 @@ func (router *Router) BindShenAiJiaController(ctx context.Context, group *ghttp.
 			controller.Login,
 		)
 		service.GfToken().Middleware(group)
+		group.Hook("/*", ghttp.HookAfterOutput, service.OperateLog().OperationLog)
 		//context拦截器
 		group.Middleware(service.Middleware().Ctx)
 		group.Bind(
