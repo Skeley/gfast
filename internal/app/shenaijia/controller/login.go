@@ -61,7 +61,7 @@ func (c *loginController) Login(ctx context.Context, req *v1.LoginReq) (res *v1.
 			Msg:       err.Error(),
 			Module:    "WeChat",
 		})
-		err = gerror.New("登陆失败, 后段服务异常或用户信息不完整")
+		err = gerror.New("登陆失败, 后端服务异常或用户信息不完整")
 		return
 	}
 	if slices.Index(user.UserTypes, req.LoginType) == -1 {

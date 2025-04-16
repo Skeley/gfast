@@ -102,7 +102,7 @@ func (s *sSysUser) GetUserByMobile(ctx context.Context, mobile string) (user *mo
 	err = g.Try(ctx, func(ctx context.Context) {
 		err = dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Mobile, mobile).Scan(&user)
 		liberr.ErrIsNil(ctx, err, "获取用户信息失败")
-		liberr.ValueIsNil(user, "账号不存在")
+		liberr.ValueIsNil(user, fmt.Sprintf("账号不存在: %s", mobile))
 		user.UserTypes = rawTypesToVec(user.RawTypes)
 	})
 	return
