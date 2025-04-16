@@ -137,7 +137,6 @@ func (s *sApp) GetPhoneNumber(ctx context.Context, code string) (string, error) 
 	if e != nil {
 		return "", gerror.Wrap(e, "refresh wechat access token")
 	}
-	g.Log().Infof(ctx, "phone rsp: %v", string(body))
 	phoneNumberRsp := &model.GetPhoneNumberRsp{}
 	_ = json.Unmarshal(body, phoneNumberRsp)
 	if phoneNumberRsp.ErrCode != 0 {
