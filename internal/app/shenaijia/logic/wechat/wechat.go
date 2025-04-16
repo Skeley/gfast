@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"github.com/gogf/gf/v2/errors/gcode"
 	"io"
 	"net/http"
 	"net/url"
@@ -29,6 +30,53 @@ func New() *sWeChat {
 }
 
 type sWeChat struct {
+	apps map[string]*sApp
+}
+
+func (s *sWeChat) init() {
+	s.apps[s.readerAppType()] = &sApp{}
+	s.apps[s.readerAppType()].init("wechat.reader")
+
+	s.apps[s.writerAppType()] = &sApp{}
+	s.apps[s.writerAppType()].init("wechat.writer")
+}
+
+func (s *sWeChat) userType2AppType(userType uint) (string, error) {
+	switch userType {
+	case 1, 3:
+		return s.readerAppType(), nil
+	case 2:
+		return s.writerAppType(), nil
+	default:
+		return "", gerror.NewCodef(gcode.CodeInvalidParameter, `invalid user type %d`, userType)
+	}
+}
+
+func (s *sWeChat) readerAppType() string {
+	return "reader"
+}
+
+func (s *sWeChat) writerAppType() string {
+	return "writer"
+}
+
+func (s *sWeChat) Jscode2Session(ctx context.Context, userType uint, loginCode string) (result *model.Jscode2SessionResp, err error) {
+	appType, e := s.userType2AppType(userType)
+	if e != nil {
+		return nil, e
+	}
+	return s.apps[appType].Jscode2Session(ctx, loginCode)
+}
+
+func (s *sWeChat) GetPhoneNumber(ctx context.Context, userType uint, code string) (string, error) {
+	appType, e := s.userType2AppType(userType)
+	if e != nil {
+		return "", e
+	}
+	return s.apps[appType].GetPhoneNumber(ctx, code)
+}
+
+type sApp struct {
 	appid  string
 	secret string
 	token  *model.TokenRsp
@@ -37,7 +85,7 @@ type sWeChat struct {
 	httpCli            *http.Client
 }
 
-func (s *sWeChat) Jscode2Session(ctx context.Context, loginCode string) (result *model.Jscode2SessionResp, err error) {
+func (s *sApp) Jscode2Session(ctx context.Context, loginCode string) (result *model.Jscode2SessionResp, err error) {
 	result = &model.Jscode2SessionResp{}
 
 	baseUrl := "https://api.weixin.qq.com/sns/jscode2session"
@@ -66,7 +114,7 @@ func (s *sWeChat) Jscode2Session(ctx context.Context, loginCode string) (result 
 	return
 }
 
-func (s *sWeChat) GetPhoneNumber(ctx context.Context, code string) (string, error) {
+func (s *sApp) GetPhoneNumber(ctx context.Context, code string) (string, error) {
 	baseUrl := "https://api.weixin.qq.com/wxa/business/getuserphonenumber"
 	params := url.Values{}
 	params.Add("access_token", s.token.AccessToken)
@@ -97,7 +145,7 @@ func (s *sWeChat) GetPhoneNumber(ctx context.Context, code string) (string, erro
 	return phoneNumberRsp.PhoneInfo.PhoneNumber, nil
 }
 
-func (s *sWeChat) refreshToken() error {
+func (s *sApp) refreshToken() error {
 	baseUrl := "https://api.weixin.qq.com/cgi-bin/stable_token"
 	data, _ := json.Marshal(model.TokenReq{
 		Appid:     s.appid,
@@ -124,22 +172,26 @@ func (s *sWeChat) refreshToken() error {
 	return nil
 }
 
-func (s *sWeChat) tokenTTL() time.Duration {
+func (s *sApp) tokenTTL() time.Duration {
 	return time.Duration(s.token.ExpiresIn)*time.Second - time.Minute*5
 }
 
-func (s *sWeChat) init() {
-	var ctx = gctx.New()
-	appidValue, err := gcfg.Instance().Get(ctx, "wechat.appid")
-	if err != nil || appidValue.String() == "" {
+func (s *sApp) init(confPath string) {
+	rawAppConf, err := gcfg.Instance().Get(gctx.GetInitCtx(), confPath)
+	if err != nil {
+		g.Throw("wechat init fail, invalid app conf")
+	}
+	conf := rawAppConf.MapStrStr()
+	appid, exist := conf["appid"]
+	if !exist || len(appid) == 0 {
 		g.Throw("wechat init fail, invalid appid")
 	}
-	secretValue, err := gcfg.Instance().Get(ctx, "wechat.secret")
-	if err != nil || secretValue.String() == "" {
+	secret, exist := conf["secret"]
+	if !exist || len(secret) == 0 {
 		g.Throw("wechat init fail, invalid secret")
 	}
-	s.appid = appidValue.String()
-	s.secret = secretValue.String()
+	s.appid = appid
+	s.secret = secret
 	s.httpCli = &http.Client{
 		Timeout: time.Second * 2,
 	}

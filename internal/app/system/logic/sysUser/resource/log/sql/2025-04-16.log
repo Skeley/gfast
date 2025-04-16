@@ -1,0 +1,21 @@
+2025-04-16 08:47:32.900 [DEBU] {581d989206a63618bbe0712409770b45} [ 88 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:47:32.919 [DEBU] {2021ea9706a63618bce07124b740b3f6} [ 18 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:47:32.955 [DEBU] {c022109906a63618bde071241ba632e3} [ 35 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='123456') AND `deleted_at` IS NULL LIMIT 1
+2025-04-16 08:47:45.487 [DEBU] {b0ddaf8209a636181f007e599b6e7713} [ 57 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:47:45.499 [DEBU] {2817238609a6361820007e592991d1e8} [ 11 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:47:45.522 [DEBU] {a840e28609a6361821007e5981a98a79} [ 22 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='123456') AND `deleted_at` IS NULL LIMIT 1
+2025-04-16 08:49:03.053 [DEBU] {10f4157b1ba63618ca5a167ab8efe491} [441 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:49:03.143 [DEBU] {688c74951ba63618cb5a167a4f1d5520} [ 89 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:49:03.317 [DEBU] {588fcc9a1ba63618cc5a167a4375bd14} [173 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='13699888556') AND `deleted_at` IS NULL LIMIT 1
+2025-04-16 08:49:14.451 [DEBU] {b8ae0d2d1ea6361832d4ea46452c6e19} [264 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:49:14.504 [DEBU] {50ffd33c1ea6361833d4ea465cca262d} [ 52 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:49:14.624 [DEBU] {b05eee3f1ea6361834d4ea46577d0c80} [120 ms] [default] [gfast-v32] [rows:1  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='13699888556') AND `deleted_at` IS NULL LIMIT 1
+2025-04-16 08:50:00.987 [DEBU] {d01ca60d29a6361837c0b575b5ff81b1} [ 82 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:50:01.004 [DEBU] {60db8e1229a6361838c0b575d9e88af3} [ 17 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:50:01.035 [DEBU] {60bd8d1329a6361839c0b5754a2e3037} [ 31 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='123') AND `deleted_at` IS NULL LIMIT 1
+2025-04-16 08:53:07.644 [DEBU] {4891308454a6361807aae22c3a6d5828} [ 67 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:53:07.659 [DEBU] {d085328854a6361808aae22c63846010} [ 14 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:53:07.687 [DEBU] {383a1a8954a6361809aae22c05630bdc} [ 27 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='123') AND `deleted_at` IS NULL LIMIT 1
+2025-04-16 08:54:27.680 [DEBU] {e0f9d42667a636189f38702436f1ae21} [ 65 ms] [default] [gfast-v32] [rows:28 ] SHOW TABLES
+2025-04-16 08:54:27.694 [DEBU] {68ccb22a67a63618a038702424178f8d} [ 14 ms] [default] [gfast-v32] [rows:24 ] SHOW FULL COLUMNS FROM `sys_user`
+2025-04-16 08:54:27.719 [DEBU] {0062892b67a63618a138702416d88021} [ 25 ms] [default] [gfast-v32] [rows:0  ] SELECT `id`,`user_name`,`user_nickname`,`mobile`,`user_password`,`user_salt`,`user_status`,`is_admin`,`avatar`,`dept_id`,`user_types`,`user_types` FROM `sys_user` WHERE (`mobile`='123') AND `deleted_at` IS NULL LIMIT 1

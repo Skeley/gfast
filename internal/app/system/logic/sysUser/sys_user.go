@@ -81,8 +81,8 @@ func (s *sSysUser) GetUserByUsername(ctx context.Context, userName string) (user
 	err = g.Try(ctx, func(ctx context.Context) {
 		user = &model.LoginUserRes{}
 		err = dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().UserName, userName).Scan(user)
-		user.UserTypes = rawTypesToVec(user.RawTypes)
 		liberr.ErrIsNil(ctx, err, "账号密码错误")
+		user.UserTypes = rawTypesToVec(user.RawTypes)
 	})
 	return
 }
@@ -92,18 +92,18 @@ func (s *sSysUser) GetUserById(ctx context.Context, id uint64) (user *model.Logi
 	err = g.Try(ctx, func(ctx context.Context) {
 		user = &model.LoginUserRes{}
 		err = dao.SysUser.Ctx(ctx).Fields(user).WherePri(id).Scan(user)
-		user.UserTypes = rawTypesToVec(user.RawTypes)
 		liberr.ErrIsNil(ctx, err, "获取用户信息失败")
+		user.UserTypes = rawTypesToVec(user.RawTypes)
 	})
 	return
 }
 
 func (s *sSysUser) GetUserByMobile(ctx context.Context, mobile string) (user *model.LoginUserRes, err error) {
-	user = &model.LoginUserRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
-		dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Mobile, mobile).Scan(user)
+		err = dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Mobile, mobile).Scan(&user)
+		liberr.ErrIsNil(ctx, err, "获取用户信息失败")
+		liberr.ValueIsNil(user, "账号不存在")
 		user.UserTypes = rawTypesToVec(user.RawTypes)
-		liberr.ErrIsNil(ctx, err, "账号不存在")
 	})
 	return
 }
@@ -111,9 +111,10 @@ func (s *sSysUser) GetUserByMobile(ctx context.Context, mobile string) (user *mo
 func (s *sSysUser) GetUserByUnionId(ctx context.Context, unionId string) (user *model.LoginUserRes, err error) {
 	user = &model.LoginUserRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
-		dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Unionid, unionId).Scan(user)
+		err = dao.SysUser.Ctx(ctx).Fields(user).Where(dao.SysUser.Columns().Unionid, unionId).Scan(&user)
+		liberr.ErrIsNil(ctx, err, "获取用户信息失败")
+		liberr.ValueIsNil(user, "账号不存在或未绑定unionid")
 		user.UserTypes = rawTypesToVec(user.RawTypes)
-		liberr.ErrIsNil(ctx, err, "账号不存在")
 	})
 	return
 }

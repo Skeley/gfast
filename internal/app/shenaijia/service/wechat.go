@@ -1,8 +1,3 @@
-// ================================================================================
-// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
-// You can delete these comments if you wish manually maintain this interface file.
-// ================================================================================
-
 package service
 
 import (
@@ -13,8 +8,8 @@ import (
 
 type (
 	IWeChat interface {
-		Jscode2Session(ctx context.Context, loginCode string) (result *model.Jscode2SessionResp, err error)
-		GetPhoneNumber(ctx context.Context, code string) (string, error)
+		Jscode2Session(ctx context.Context, userType uint, loginCode string) (result *model.Jscode2SessionResp, err error)
+		GetPhoneNumber(ctx context.Context, userType uint, code string) (string, error)
 	}
 )
 

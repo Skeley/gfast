@@ -16,7 +16,7 @@ type LoginReq struct {
 	g.Meta    `path:"/login" tags:"登陆" method:"post" summary:"登陆"`
 	LoginCode string `v:"required" json:"loginCode"`
 	PhoneCode string `v:"required" json:"phoneCode"`
-	IV        string `json:"iv"`
+	LoginType uint   `v:"required" json:"loginType"`
 }
 
 type LoginRes struct {

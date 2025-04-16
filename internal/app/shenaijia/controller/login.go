@@ -3,12 +3,12 @@ package controller
 import (
 	"context"
 	"fmt"
-
 	"github.com/gogf/gf/v2/crypto/gmd5"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gconv"
+	"slices"
 
 	v1 "github.com/tiger1103/gfast/v3/api/shenaijia/v1"
 	commonController "github.com/tiger1103/gfast/v3/internal/app/common/controller"
@@ -33,12 +33,12 @@ func (c *loginController) Login(ctx context.Context, req *v1.LoginReq) (res *v1.
 	)
 	ip := libUtils.GetClientIp(ctx)
 	userAgent := libUtils.GetUserAgent(ctx)
-	sessionRsp, e := service.WeChat().Jscode2Session(ctx, req.LoginCode)
+	sessionRsp, e := service.WeChat().Jscode2Session(ctx, req.LoginType, req.LoginCode)
 	if e != nil {
 		return nil, gerror.Newf("微信接口异常: %s ", e.Error())
 	}
 	if req.PhoneCode != "" {
-		phone, e := service.WeChat().GetPhoneNumber(ctx, req.PhoneCode)
+		phone, e := service.WeChat().GetPhoneNumber(ctx, req.LoginType, req.PhoneCode)
 		if e != nil {
 			return nil, gerror.Newf("微信接口异常: %s ", e.Error())
 		}
@@ -62,6 +62,10 @@ func (c *loginController) Login(ctx context.Context, req *v1.LoginReq) (res *v1.
 			Module:    "WeChat",
 		})
 		err = gerror.New("登陆失败, 后段服务异常或用户信息不完整")
+		return
+	}
+	if slices.Index(user.UserTypes, req.LoginType) == -1 {
+		err = gerror.New("登陆失败, 无权限")
 		return
 	}
 	user.UserPassword = ""
