@@ -34,6 +34,7 @@ type sWeChat struct {
 }
 
 func (s *sWeChat) init() {
+	s.apps = make(map[string]*sApp)
 	s.apps[s.readerAppType()] = &sApp{}
 	s.apps[s.readerAppType()].init("wechat.reader")
 
