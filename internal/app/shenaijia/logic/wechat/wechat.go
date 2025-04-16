@@ -107,6 +107,7 @@ func (s *sApp) Jscode2Session(ctx context.Context, loginCode string) (result *mo
 	if e != nil {
 		return nil, gerror.Wrap(e, "wechat session")
 	}
+	g.Log().Infof(ctx, "sessionRsp: %+v", string(body))
 	_ = json.Unmarshal(body, &result)
 
 	if result.ErrCode != 0 {

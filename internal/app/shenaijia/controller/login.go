@@ -34,7 +34,6 @@ func (c *loginController) Login(ctx context.Context, req *v1.LoginReq) (res *v1.
 	ip := libUtils.GetClientIp(ctx)
 	userAgent := libUtils.GetUserAgent(ctx)
 	sessionRsp, e := service.WeChat().Jscode2Session(ctx, req.LoginType, req.LoginCode)
-	g.Log().Infof(ctx, "sessionRsp: %+v", sessionRsp)
 	if e != nil {
 		return nil, gerror.Newf("微信接口异常: %s ", e.Error())
 	}
