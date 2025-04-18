@@ -136,3 +136,16 @@ func (s *sCommunity) Update(ctx context.Context, req *api.CommunityUpdateReq) (r
 	})
 	return
 }
+
+func (s *sCommunity) BoundUser(ctx context.Context, communityId uint) (userId uint64, err error) {
+	err = g.Try(ctx, func(ctx context.Context) {
+		var r *entity.CommunityUnion
+		e := dao.CommunityUnion.Ctx(ctx).Where("community_id = ?", communityId).Scan(&r)
+		liberr.ErrIsNil(ctx, e, "检索小区物业失败")
+		if r == nil {
+			g.Throw(errors.New("小区不存在"))
+		}
+		userId = uint64(r.UserId)
+	})
+	return
+}

@@ -29,7 +29,7 @@ func New() *sProject {
 
 type sProject struct{}
 
-func (s *sProject) List(ctx context.Context, user *sysModel.LoginUserRes, req *api.ProjectListReq) (res *api.ProjectListRes, err error) {
+func (s *sProject) List(ctx context.Context, userCtx *sysModel.Context, req *api.ProjectListReq) (res *api.ProjectListRes, err error) {
 	res = &api.ProjectListRes{}
 	err = g.Try(ctx, func(ctx context.Context) {
 		m := dao.Project.Ctx(ctx).InnerJoin(dao.Community.Table(), "c",
@@ -37,17 +37,17 @@ func (s *sProject) List(ctx context.Context, user *sysModel.LoginUserRes, req *a
 				dao.Project.Table(),
 				dao.Project.Columns().CommunityId,
 				dao.Community.Columns().Id))
-		if slices.Index(user.UserTypes, req.UserType) == -1 {
+		if slices.Index(userCtx.User.UserTypes, userCtx.LoginType) == -1 {
 			g.Throw(errors.New("非法请求, 用户身份无效"))
 		}
 		m = m.Where(dao.Project.Columns().Valid, true)
-		switch req.UserType {
+		switch userCtx.LoginType {
 		case 1:
-			m = m.Where(dao.Project.Columns().Manager, user.Id)
+			m = m.Where(dao.Project.Columns().Manager, userCtx.User.Id)
 		case 2:
-			m = m.Where(dao.Project.Columns().Creator, user.Id)
+			m = m.Where(dao.Project.Columns().Creator, userCtx.User.Id)
 		case 3:
-			m = m.Where(dao.Project.Columns().Associate, user.Id)
+			m = m.Where(dao.Project.Columns().Associate, userCtx.User.Id)
 		}
 		res.Total, err = m.Count()
 		liberr.ErrIsNil(ctx, err, "获取项目列表失败")
@@ -63,6 +63,55 @@ func (s *sProject) List(ctx context.Context, user *sysModel.LoginUserRes, req *a
 			Page(req.PageNum, req.PageSize).Order(dao.Project.Columns().StartDate + " desc").
 			Scan(&res.List)
 		liberr.ErrIsNil(ctx, err, "获取项目列表失败")
+	})
+	return
+}
+
+func (s *sProject) Add(ctx context.Context, manager, creator uint64, req *api.ProjectAddReq) (res *api.ProjectAddRes, err error) {
+	res = &api.ProjectAddRes{}
+	err = g.Try(ctx, func(ctx context.Context) {
+		data := entity.Project{
+			ProjectName: req.ProjectName,
+			CommunityId: req.CommunityId,
+			Progress:    0,
+			Manager:     uint(manager),
+			Creator:     uint(creator),
+		}
+		if len(req.StartDate) > 0 {
+			data.StartDate = gtime.New(req.StartDate)
+		}
+		if len(req.EstimatedCompletionDate) > 0 {
+			data.EstimatedCompletionDate = gtime.New(req.EstimatedCompletionDate)
+		}
+		_, err := dao.Project.Ctx(ctx).Insert(data)
+		liberr.ErrIsNil(ctx, err, "添加项目失败")
+	})
+	return
+}
+
+func (s *sProject) Update(ctx context.Context, req *api.ProjectUpdateReq) (res *api.ProjectUpdateRes, err error) {
+	res = &api.ProjectUpdateRes{}
+	data := g.Map{
+		dao.Project.Columns().ProjectName:      req.ProjectName,
+		dao.Project.Columns().Progress:         req.Progress,
+		dao.Project.Columns().InspectionReport: req.InspectionReport,
+		dao.Project.Columns().AcceptanceReport: req.AcceptanceReport,
+	}
+	if len(req.StartDate) > 0 {
+		data[dao.Project.Columns().StartDate] = gtime.New(req.StartDate)
+	}
+	if len(req.EstimatedCompletionDate) > 0 {
+		data[dao.Project.Columns().EstimatedCompletionDate] = gtime.New(req.EstimatedCompletionDate)
+	}
+	if len(req.CompletionDate) > 0 {
+		data[dao.Project.Columns().CompletionDate] = gtime.New(req.CompletionDate)
+	}
+	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		err = g.Try(ctx, func(ctx context.Context) {
+			_, e := dao.Project.Ctx(ctx).TX(tx).WherePri(req.ProjectId).Update(data)
+			liberr.ErrIsNil(ctx, e, "修改项目失败")
+		})
+		return err
 	})
 	return
 }

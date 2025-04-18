@@ -27,7 +27,7 @@ type (
 		LoginLog(ctx context.Context, params *model.LoginLogParams)
 		UpdateLoginInfo(ctx context.Context, id uint64, ip string) (err error)
 		BindUnionId(ctx context.Context, id uint64, unionId string) (err error)
-		IsNewUser(ctx context.Context, userName string) (isNewUser bool, err error)
+		IsNewUser(ctx context.Context, unionId string) (isNewUser bool, err error)
 		GetAdminRules(ctx context.Context, userId uint64) (menuList []*model.UserMenus, permissions []string, err error)
 		GetAdminRole(ctx context.Context, userId uint64, allRoleList []*entity.SysRole) (roles []*entity.SysRole, err error)
 		GetAdminRoleIds(ctx context.Context, userId uint64) (roleIds []uint, err error)

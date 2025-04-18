@@ -107,7 +107,6 @@ func (s *sApp) Jscode2Session(ctx context.Context, loginCode string) (result *mo
 	if e != nil {
 		return nil, gerror.Wrap(e, "wechat session")
 	}
-	g.Log().Infof(ctx, "sessionRsp: %+v", string(body))
 	_ = json.Unmarshal(body, &result)
 
 	if result.ErrCode != 0 {
@@ -123,7 +122,6 @@ func (s *sApp) GetPhoneNumber(ctx context.Context, code string) (string, error) 
 	fullURL := baseUrl + "?" + params.Encode()
 
 	data, _ := json.Marshal(model.GetPhoneNumberReq{
-		// OpenId: openid,
 		Code: code,
 	})
 
@@ -210,7 +208,6 @@ func (s *sApp) init(confPath string) {
 				s.tokenRefreshTicker.Reset(time.Second)
 				continue
 			}
-			g.Log().Info(gctx.GetInitCtx(), "refresh token success")
 			s.tokenRefreshTicker.Reset(s.tokenTTL())
 		}
 	}()

@@ -22,7 +22,7 @@ type Project struct {
 	InspectionReport        string      `json:"inspectionReport"        orm:"inspection_report"         description:"检查报告PDF链接"`
 	AcceptanceReport        string      `json:"acceptanceReport"        orm:"acceptance_report"         description:"验收报告PDF链接"`
 	State                   int         `json:"state"                   orm:"state"                     description:"项目状态: 0(未审核), 1(审核通过)"`
-	Creator                 int         `json:"creator"                 orm:"creator"                   description:"创建人"`
+	Creator                 uint         `json:"creator"                 orm:"creator"                   description:"创建人"`
 	Manager                 uint        `json:"manager"                 orm:"manager"                   description:"物业经理"`
 	Associate               uint        `json:"associate"               orm:"associate"                 description:"合伙人"`
 }

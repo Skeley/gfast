@@ -14,7 +14,9 @@ import (
 
 type (
 	IProject interface {
-		List(ctx context.Context, user *sysModel.LoginUserRes, req *api.ProjectListReq) (res *api.ProjectListRes, err error)
+		List(ctx context.Context, userCtx *sysModel.Context, req *api.ProjectListReq) (res *api.ProjectListRes, err error)
+		Add(ctx context.Context, manager uint64, creator uint64, req *api.ProjectAddReq) (res *api.ProjectAddRes, err error)
+		Update(ctx context.Context, req *api.ProjectUpdateReq) (res *api.ProjectUpdateRes, err error)
 		SysList(ctx context.Context, req *api.SysProjectSearchReq) (res *api.SysProjectSearchRes, err error)
 		SysAdd(ctx context.Context, req *api.SysProjectAddReq) (res *api.SysProjectAddRes, err error)
 		SysEdit(ctx context.Context, req *api.SysProjectEditReq) (res *api.SysProjectEditRes, err error)

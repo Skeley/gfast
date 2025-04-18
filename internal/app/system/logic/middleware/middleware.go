@@ -46,6 +46,8 @@ func (s *sMiddleware) Ctx(r *ghttp.Request) {
 			// 执行下一步请求逻辑
 			r.Middleware.Next()
 		}
+		context.LoginType = gconv.Uint(r.Header.Get("LoginType"))
+		context.AppId = r.Header.Get("AppId")
 		service.Context().Init(r, context)
 	}
 	// 执行下一步请求逻辑
