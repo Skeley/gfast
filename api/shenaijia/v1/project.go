@@ -15,8 +15,7 @@ import (
 )
 
 type ProjectListReq struct {
-	g.Meta   `path:"/project/list" tags:"工程项目管理" method:"get" summary:"获取用户所有项目信息"`
-	UserType uint `v:"required" json:"userType"`
+	g.Meta `path:"/project/list" tags:"工程项目管理" method:"get" summary:"获取用户所有项目信息"`
 	commonApi.PageReq
 }
 
