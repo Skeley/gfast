@@ -25,14 +25,14 @@ type LoginRes struct {
 	Token  string              `json:"token"`
 }
 
-type CheckIsNewUserReq struct {
-	g.Meta    `path:"/user/is_new_user" tags:"用户管理" method:"get" summary:"检查是否是新用户"`
+type UserAuthReq struct {
+	g.Meta    `path:"/user/auth" tags:"用户管理" method:"get" summary:"验证"`
 	LoginCode string `v:"required" json:"loginCode"`
 }
 
-type CheckIsNewUserRes struct {
-	g.Meta  `mime:"application/json"`
-	NewUser bool `json:"newUser"`
+type UserAuthRes struct {
+	g.Meta `mime:"application/json"`
+	Pass   bool `json:"pass"`
 }
 
 type UserBoundCommunityReq struct {

@@ -30,7 +30,7 @@ func (c *sysUserController) UnbindCommunity(ctx context.Context, req *v1.UserUnb
 	return service.User().UnbindCommunity(ctx, req)
 }
 
-func (c *sysUserController) CheckIsNewUserReq(ctx context.Context, req *v1.CheckIsNewUserReq) (res *v1.CheckIsNewUserRes, err error) {
+func (c *sysUserController) Auth(ctx context.Context, req *v1.UserAuthReq) (res *v1.UserAuthRes, err error) {
 	sessionRsp, e := service.WeChat().Jscode2Session(ctx, 2, req.LoginCode)
 	if e != nil {
 		return nil, gerror.Newf("微信接口异常: %s ", e.Error())
@@ -40,8 +40,8 @@ func (c *sysUserController) CheckIsNewUserReq(ctx context.Context, req *v1.Check
 	if e != nil {
 		return nil, e
 	}
-	res = &v1.CheckIsNewUserRes{
-		NewUser: isNew,
+	res = &v1.UserAuthRes{
+		Pass: !isNew,
 	}
 	return res, nil
 }
